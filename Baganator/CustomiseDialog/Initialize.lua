@@ -60,7 +60,7 @@ function addonTable.CustomiseDialog.Initialize()
       local function MakeView()
         local view = CreateFrame("Frame", nil, frame)
         view:SetPoint("TOPLEFT", 16, -64)
-        view:SetPoint("BOTTOMRIGHT", -16, 16)
+        view:SetPoint("BOTTOMRIGHT", -16, 34)
         view:Hide()
         table.insert(frame.Views335, view)
         return view
@@ -80,7 +80,7 @@ function addonTable.CustomiseDialog.Initialize()
 
       local function MakeTab(text, index)
         local tab = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
-        tab:SetSize(112, 24)
+        tab:SetSize(96, 24)
         if index == 1 then
           tab:SetPoint("TOPLEFT", 18, -32)
         else
@@ -157,6 +157,7 @@ function addonTable.CustomiseDialog.Initialize()
       MakeTab(addonTable.Locales.LAYOUT or "Layout", 2)
       MakeTab(addonTable.Locales.AUTO_OPEN or "Auto Open", 3)
       MakeTab(addonTable.Locales.SORTING or "Sorting", 4)
+      MakeTab("Credits", 5)
 
       -- Phase 1: deliberately limited to settings that map cleanly to Wrath.
       local general = MakeView()
@@ -169,25 +170,6 @@ function addonTable.CustomiseDialog.Initialize()
       reset:SetPoint("TOPLEFT", 20, -122)
       reset:SetText(addonTable.Locales.RESET_POSITIONS or "Reset frame positions")
       reset:SetScript("OnClick", function() addonTable.CallbackRegistry:TriggerEvent("ResetFramePositions") end)
-
-      -- Visible attribution for the original projects and the 3.3.5a compatibility work.
-      local creditsHeader = general:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-      creditsHeader:SetPoint("TOPLEFT", 20, -174)
-      creditsHeader:SetText("Credits")
-
-      local credits = general:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-      credits:SetPoint("TOPLEFT", creditsHeader, "BOTTOMLEFT", 0, -6)
-      credits:SetWidth(480)
-      credits:SetJustifyH("LEFT")
-      credits:SetJustifyV("TOP")
-      local backportVersion = GetAddOnMetadata("Baganator", "Version") or "1.0.0"
-      credits:SetText(
-        "Original Baganator and Syndicator by plusmouse (The Mouse Nest).\n" ..
-        "World of Warcraft 3.3.5a backport and compatibility work by Disruption01.\n" ..
-        "Disruption01 release: " .. backportVersion .. "  |  Upstream bases: Baganator 823-2-ged5d1c8, Syndicator 279.\n" ..
-        "GitHub: github.com/disruption01/Baganator_335a_backport\n" ..
-        "Discord: discord.gg/eJ5MaVNnBm  |  Support: linktr.ee/disruption01"
-      )
 
       local layout = MakeView()
       MakeStepper(layout, addonTable.Locales.BAG_COLUMNS or "Bag columns", -4, addonTable.Config.Options.BAG_VIEW_WIDTH, 1, 24)
@@ -231,6 +213,11 @@ function addonTable.CustomiseDialog.Initialize()
       MakeStepper(sorting, addonTable.Locales.IGNORED_BAG_SLOTS or "Ignored bag slots", -154, addonTable.Config.Options.SORT_IGNORE_BAG_SLOTS_COUNT, 0, 240)
       MakeStepper(sorting, addonTable.Locales.IGNORED_BANK_SLOTS or "Ignored bank slots", -192, addonTable.Config.Options.SORT_IGNORE_BANK_SLOTS_COUNT, 0, 500)
 
+      local credits = MakeView()
+      addonTable.Credits335.Populate(credits, true)
+
+      frame.ShowTab335 = ShowTab
+
       frame:SetScript("OnShow", function()
         ShowTab(frame.CurrentTab335 or 1)
       end)
@@ -246,6 +233,14 @@ function addonTable.CustomiseDialog.Initialize()
         classicFrame:RefreshControls335()
       end
     end)
+
+    function addonTable.CustomiseDialog.ShowCredits335()
+      if not classicFrame then classicFrame = BuildClassicSettings() end
+      classicFrame:Show()
+      classicFrame:Raise()
+      if classicFrame.ShowTab335 then classicFrame.ShowTab335(5) end
+      classicFrame:RefreshControls335()
+    end
 
     addonTable.CallbackRegistry:RegisterCallback("SettingChanged", function()
       if classicFrame and classicFrame:IsShown() then classicFrame:RefreshControls335() end

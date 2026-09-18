@@ -19,7 +19,8 @@ First release candidate based on the tested `alpha0.42` compatibility baseline.
 
 - Added visible orange `v1.0.0` suffixes to both Baganator and Syndicator in WoW's AddOns list.
 - Added maintainer, target-client, upstream, repository, Discord, and support metadata.
-- Added visible upstream/Disruption01 attribution in the Baganator and Syndicator settings UIs.
+- Added visible upstream/Disruption01 attribution in the Baganator settings UI, first-run welcome screen, minimap-button tooltip, and Syndicator settings UI.
+- Added a native 3.3.5a Baganator minimap button (left-click bags, right-click settings).
 - Added repository-level README, credits, changelog, and license notice.
 
 ### Upstream bases

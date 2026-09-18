@@ -16,11 +16,18 @@ function addonTable.ShowWelcome()
   ButtonFrameTemplate_HideButtonBar(frame)
   frame.Inset:Hide()
   addonTable.Skins.AddFrame("ButtonFrame", frame)
+  -- The stock 3.3.5a ButtonFrameTemplate does not provide the modern
+  -- Baganator panel background here, so make the onboarding dialog match
+  -- the rest of the 3.3.5a UI explicitly. Apply this after skin registration
+  -- so a skin cannot leave the frame transparent.
+  if BAGANATOR_335 and addonTable.Compatibility and addonTable.Compatibility.ApplyDarkBackdrop then
+    addonTable.Compatibility.ApplyDarkBackdrop(frame)
+  end
   frame:EnableMouse(true)
   frame:SetPoint("CENTER")
   frame:SetToplevel(true)
 
-  frame:SetSize(550, 180)
+  frame:SetSize(570, 235)
 
   frame:SetTitle(addonTable.Locales.WELCOME_TO_BAGANATOR)
 
@@ -32,27 +39,33 @@ function addonTable.ShowWelcome()
 
   local singleBagHeader = frame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
   singleBagHeader:SetText(addonTable.Locales.SINGLE_BAG)
-  singleBagHeader:SetPoint("LEFT", 20, 0)
-  singleBagHeader:SetPoint("RIGHT", frame, "CENTER", -10, 0)
-  singleBagHeader:SetPoint("TOP", 0, -70)
+  singleBagHeader:SetPoint("LEFT", 24, 0)
+  singleBagHeader:SetPoint("RIGHT", frame, "CENTER", -12, 0)
+  singleBagHeader:SetPoint("TOP", 0, -72)
 
   local singleBagText = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
   singleBagText:SetText(addonTable.Locales.SINGLE_BAG_DESCRIPTION_2)
   singleBagText:SetPoint("LEFT", singleBagHeader)
   singleBagText:SetPoint("RIGHT", singleBagHeader)
-  singleBagText:SetPoint("TOP", singleBagHeader, "BOTTOM", 0, -10)
+  singleBagText:SetPoint("TOP", singleBagHeader, "BOTTOM", 0, -8)
+  singleBagText:SetHeight(38)
+  singleBagText:SetJustifyH("CENTER")
+  singleBagText:SetJustifyV("TOP")
 
   local categoryGroupsHeader = frame:CreateFontString(nil, "ARTWORK", "GameFontNormal")
   categoryGroupsHeader:SetText(addonTable.Locales.CATEGORY_GROUPS)
-  categoryGroupsHeader:SetPoint("RIGHT", -20, 0)
-  categoryGroupsHeader:SetPoint("LEFT", frame, "CENTER", 10, 0)
-  categoryGroupsHeader:SetPoint("TOP", 0, -70)
+  categoryGroupsHeader:SetPoint("RIGHT", -24, 0)
+  categoryGroupsHeader:SetPoint("LEFT", frame, "CENTER", 12, 0)
+  categoryGroupsHeader:SetPoint("TOP", 0, -72)
 
   local categoryGroupsText = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
   categoryGroupsText:SetText(addonTable.Locales.CATEGORY_GROUPS_DESCRIPTION)
   categoryGroupsText:SetPoint("LEFT", categoryGroupsHeader)
   categoryGroupsText:SetPoint("RIGHT", categoryGroupsHeader)
-  categoryGroupsText:SetPoint("TOP", categoryGroupsHeader, "BOTTOM", 0, -10)
+  categoryGroupsText:SetPoint("TOP", categoryGroupsHeader, "BOTTOM", 0, -8)
+  categoryGroupsText:SetHeight(38)
+  categoryGroupsText:SetJustifyH("CENTER")
+  categoryGroupsText:SetJustifyV("TOP")
 
   local function MakeChooseButton(value)
     local button = CreateFrame("Button", nil, frame, BAGANATOR_335 and "UIPanelButtonTemplate" or "UIPanelDynamicResizeButtonTemplate")
@@ -68,10 +81,19 @@ function addonTable.ShowWelcome()
   end
   local chooseSingle = MakeChooseButton("single")
   local chooseCategories = MakeChooseButton("category")
-  chooseSingle:SetPoint("CENTER", singleBagHeader)
-  chooseSingle:SetPoint("BOTTOM", 0, 25)
-  chooseCategories:SetPoint("CENTER", categoryGroupsHeader)
-  chooseCategories:SetPoint("BOTTOM", 0, 25)
+  -- Use a single deterministic anchor for each choice button. The previous
+  -- CENTER + BOTTOM double-anchor stretched/repositioned the buttons on
+  -- 3.3.5a and made them collide with the attribution line.
+  chooseSingle:ClearAllPoints()
+  chooseSingle:SetPoint("BOTTOM", frame, "BOTTOM", -142, 44)
+  chooseCategories:ClearAllPoints()
+  chooseCategories:SetPoint("BOTTOM", frame, "BOTTOM", 142, 44)
+
+  local attribution = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+  attribution:SetPoint("BOTTOM", frame, "BOTTOM", 0, 16)
+  attribution:SetWidth(510)
+  attribution:SetJustifyH("CENTER")
+  attribution:SetText("Original by |cffffffffplusmouse / The Mouse Nest|r  |  3.3.5a backport by |cffff7a00Disruption01|r")
 
   local categoryBag, singleBag
 

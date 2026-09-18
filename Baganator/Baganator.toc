@@ -31,6 +31,8 @@ Core\Utilities.lua
 Core\SlashCmd.lua
 Core\Welcome.lua
 Core\Dialogs.lua
+Core\Credits.lua
+Core\MinimapButton.lua
 Core\Initialize.lua
 
 Skins\Utilities.lua

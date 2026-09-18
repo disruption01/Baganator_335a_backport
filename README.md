@@ -25,6 +25,7 @@ The 3.3.5a port keeps the Baganator/Syndicator inventory model while adapting th
 - Keyring and special-container handling.
 - Inventory location information and Syndicator-backed item tracking.
 - A native 3.3.5a settings/compatibility UI.
+- A 3.3.5a minimap button: left-click toggles bags; right-click opens settings.
 
 ## Disruption01 Additions
 
@@ -37,7 +38,7 @@ The 3.3.5a work includes substantial compatibility and stability changes, includ
 - Native Wrath search, saved-search, character-select, help, and currency UI adaptations.
 - Deterministic header-button rendering and keyring/special-container icon handling.
 - Visible Disruption01 release versions in WoW's AddOns list.
-- In-game credits preserving upstream authorship.
+- Visible in-game attribution in the minimap tooltip, settings UI, and first-run welcome screen.
 
 Detailed development history is retained in `Baganator/BACKPORT_NOTES.txt` and `Baganator/BACKPORT_NOTES_335.txt`.
 
@@ -69,7 +70,7 @@ Do not install only one of the two folders.
 
 ## Configuration / Usage
 
-Baganator exposes its 3.3.5a-compatible customisation window from the addon UI. Syndicator also registers a small compatibility page in Interface Options.
+Baganator exposes its 3.3.5a-compatible customisation window from the addon UI. The 3.3.5a minimap button opens the bags with left-click and the settings window with right-click. Syndicator also registers a small compatibility page in Interface Options.
 
 The 3.3.5a settings UI is intentionally narrower than the modern upstream configuration because modern `Settings`, `ScrollBox`, and `MenuUtil` systems do not exist on build 12340.
 

@@ -66,8 +66,14 @@ function addonTable.Dialogs.ShowCopy(text)
     dialog.editBox:SetAutoFocus(false)
     dialog.editBox:SetSize(200, 30)
     dialog.editBox:SetPoint("CENTER")
-    dialog.editBox:SetScript("OnEnterPressed", function()
+    dialog.editBox:SetScript("OnEnterPressed", function(self)
+      self:ClearFocus()
+      if BAGANATOR_335 and self.EnableKeyboard then self:EnableKeyboard(false) end
       dialog:Hide()
+    end)
+    dialog:SetScript("OnHide", function()
+      dialog.editBox:ClearFocus()
+      if BAGANATOR_335 and dialog.editBox.EnableKeyboard then dialog.editBox:EnableKeyboard(false) end
     end)
 
     local okButton = CreateDialogButton335(dialog)
@@ -88,6 +94,7 @@ function addonTable.Dialogs.ShowCopy(text)
   dialog:Hide()
   dialog:Show()
   dialog.editBox:SetText(text)
+  if BAGANATOR_335 and dialog.editBox.EnableKeyboard then dialog.editBox:EnableKeyboard(true) end
   dialog.editBox:SetFocus()
   dialog.editBox:HighlightText()
 end

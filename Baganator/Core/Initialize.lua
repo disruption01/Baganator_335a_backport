@@ -64,6 +64,7 @@ addonTable.Utilities.OnAddonLoaded("Baganator", function()
   addonTable.ViewManagement.Initialize()
 
   addonTable.CustomiseDialog.Initialize()
+  addonTable.MinimapButton.Initialize()
 
   addonTable.Skins.Initialize()
 
