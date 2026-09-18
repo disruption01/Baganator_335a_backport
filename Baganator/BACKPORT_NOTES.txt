@@ -1,0 +1,87 @@
+
+alpha0.18
+- Reworked classic item-button quality border to remove 3.3.5a action-button glow artifacts.
+- Hydrate cached-item searchOverlay and safe classic container OnLeave.
+- Map GetItemInventoryTypeByID to numeric InventoryType IDs; defensive sorting for stale strings.
+- Recover/fallback Guild Logs/Tab Text dialogs instead of crashing Guild Bank view.
+- Converted Baganator PNG UI assets to Wrath-compatible TGA and updated references.
+- Replaced red UIPanelButton-style icon buttons with dark classic button textures.
+- Guard tooltip headers against nil locale strings.
+
+alpha0.19
+- Neutralize legacy ItemButtonTemplate normal/pushed/highlight/Border layers that rendered as white diagonal wedges.
+- Resolve item icons from the local 3.3.5a client by item ID/link when possible.
+- Harden live/cached search overlays and container tooltip enter/leave fallbacks.
+- Gold tooltip anchors to a real Frame rather than a FontString on Wrath.
+- Explicit Guild Bank deposit/withdraw fallbacks when the second XML Frames block is ignored by 3.3.5a.
+
+alpha0.22
+- Added deterministic 3.3.5 ButtonFrame header: centered title and real close X.
+- Re-anchored Customise/Sort/Transfer buttons to the new close button.
+- Added GetBagAndSlot/GetEquipmentSlot to the ItemLocation compatibility objects.
+- Made item widgetContainer lazy/robust for generic drop slots.
+- Replaced the unsupported QuestTurnin atlas help icon with a Wrath texture.
+
+alpha0.23
+- Guarded SpellCanTargetItemID on Wrath.
+- Native Wrath confirmation dialogs (no NineSlicePanelTemplate).
+- Native Wrath Help/Search frame and scrolling (no ButtonFrameTemplate/WowScrollBox dependency).
+- Robust sorting location pickup for ItemLocation objects and capped/throttled retries.
+- Removed stale inherited item-button FontStrings that could render behind bank slots.
+- Money tooltip blank-line helper made Wrath-compatible.
+
+alpha0.24
+- Re-enabled Baganator Customise dialog on 3.3.5a.
+- Re-enabled and backported the Currencies panel/button with classic scroll widgets.
+- Added a hard 60 second sorting timeout and clears stale desaturation after abort/complete.
+- Character Select now uses Baganator's private Wrath scroll implementation and receives a classic backdrop.
+- Search placeholder hides while typing; saved-search star/menu is available on Wrath.
+- Help uses Wrath-safe fonts/backdrop and a clean yellow question-mark glyph.
+- Dialog buttons no longer depend on UIPanelDynamicResizeButtonTemplate.
+- Invalid GetSpellInfo calls are guarded.
+- Live item buttons clear stale inherited text/count regions.
+
+alpha0.25
+- Revert alpha0.24 global header icon overrides; preserve the icon rendering that was already stable in alpha0.23.
+- Make the Character Select use a private data provider as well as a private scroll implementation, avoiding Auctionator provider/scroll collisions while preserving character rows.
+- Make the search clear button reliably clickable and clear the EditBox directly.
+- Hard-clear stale item desaturation whenever sorting completes, while retaining the 60-second watchdog fallback.
+- Make classic window backdrops fully opaque so chat/world text no longer bleeds through Bank/Bag/Guild views.
+- Add 3.3.5 currency icon fallbacks for Badge of Justice and Wrath emblem/token currencies.
+- Force compact GameFontNormal titles on classic ButtonFrame shells.
+
+alpha0.26
+- Sort now preflights the complete move plan before touching the cursor; already-correct layouts are a no-op and locked plans wait without partial movement.
+- Wrath sort watchdog reduced to 15 seconds; completion/timeout re-applies only intentional persistent greying and clears transient lock desaturation.
+- Character Select gets explicit Wrath viewport anchors and guaranteed row FontStrings, independent of Auctionator's ScrollBox shim.
+- Live bank no longer shows the cached-bank-missing hint behind slots; raw inherited %s hint text is suppressed.
+- Currency rows use explicit Wrath PvE currency textures (including Badge of Justice).
+- Left header icons are aligned/sized with the right-side header controls.
+- Saved Searches star restored in the Wrath search layout; clear-search hit target strengthened.
+- Gold summary tooltip anchors to the exact money hit-frame instead of the full currency widget.
+
+alpha0.27
+- Replace Character Select ScrollBox shim with private classic rows so saved characters render reliably.
+- Fix classic currency token icons; Badge of Justice uses Spell_Holy_ChampionsBond and others prefer item icons.
+- Enlarge left-side header navigation glyphs to better match the right-side controls.
+- Store explicit bag/slot coordinates on live item buttons so click/drag/split do not depend on pooled parent inference.
+
+alpha0.28
+- Header left-side Bags / Bank / Guild / All Characters icon textures reduced from 20x20 to 17x17 to match the right-side header controls.
+- Kept a 1px downward visual offset (CENTER y=-1) so the icons sit inside the header line instead of crossing it.
+- No sorting, inventory, currency, Character Select, or item-button logic changed.
+
+alpha0.29
+- Make the four left-side header navigation icons deterministic on 3.3.5a instead of relying on virtual-template region inheritance.
+- Explicitly restore Bank / Guild Bank / All Characters / Bag Slots textures at 17x17 with the existing 1px downward offset, using an OVERLAY draw layer.
+- Fixes the blank All Characters header button seen after switching/logging another character without reintroducing the broad alpha0.24 icon override.
+
+alpha0.30
+- Help/Search uses a real Wrath ScrollFrame range with mouse-wheel forwarding from the frame, content and keyword edit boxes; forces scroll-child rect refresh after wrapped text layout.
+- Left header navigation glyphs move one additional pixel down (y=-2); Baganator icon-button chrome is reasserted narrowly so Bank/Guild/Search and Settings buttons do not lose their backdrop/icon on fresh character frame groups.
+- Settings/Search/Saved-search/Sort/Transfer/Currency icons get deterministic Baganator-local fallbacks without restoring the broad alpha0.24 global override.
+- Live bag/bank item buttons inherit Blizzard's stock 3.3.5 ContainerFrameItemButtonTemplate again, while retaining the alpha0.21+ visual sanitization. The trusted Blizzard OnClick/drag scripts now handle protected item use, targeting and pickup instead of insecure addon calls.
+
+alpha0.38
+- Saved-search popup now refreshes live while the main search text changes.
+- Bank/shield header glyph receives a 2px optical-centering correction; other header icons unchanged.

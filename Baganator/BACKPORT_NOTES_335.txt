@@ -1,0 +1,48 @@
+
+alpha0.20
+- Dense pre-sort list on Lua 5.1 to avoid nil comparator operands.
+- Added GameTooltip_AddBlankLineToTooltip compatibility helper.
+- 3.3.5 live container buttons now set native GetItemIcon textures directly and sanitize unknown inherited texture layers.
+- 3.3.5 layouts size buttons directly instead of scaling the whole legacy ItemButton template.
+- Added a classic dark backdrop fallback to backpack, bank and guild views.
+alpha0.21
+- 3.3.5 live bag/bank buttons no longer inherit ContainerFrameItemButtonTemplate; use clean ItemButtonTemplate plus explicit click/drag/split behavior.
+- 3.3.5 live guild-bank buttons no longer inherit GuildBankItemButtonTemplate; retain explicit guild click/drag behavior.
+- Explicitly hydrate cooldown and quest overlay regions required by live container buttons.
+- Guard BankViewCharacterView first live-item resize against unresolved GetTop/GetBottom anchors.
+
+
+alpha0.31:
+- Deterministic 3.3.5 pooled item-button reset; clears stale anchors/state before reuse.
+- Flow layouts clear item-button anchors before placing them (fixes fresh-character/keyring slot stretching/disappearing).
+- Defers first live-bank render until Syndicator completes the initial BANKFRAME_OPENED snapshot.
+- All header icon buttons use one explicit classic-bag-slot chrome, fixing bank/shield and search background mismatch.
+- Stack count region is forced bottom-right; Wrath item-level 1 marker is suppressed on starter gear.
+
+alpha0.32:
+- Guard BackpackView first-layout vertical spacing against unresolved GetTop() anchors on freshly-created characters.
+- Prevents OnFinished from aborting the initial bag layout when BagSlots/self anchors are not resolved yet.
+
+alpha0.33:
+- Wrath sorting watchdog reduced from 15 seconds to 5 seconds; any stale wait/lock state is forcibly cancelled and transient greying is cleared at the deadline.
+- Left header navigation glyphs (Bag Slots / Bank / All Characters / Guild Bank) moved 1 additional pixel down, from CENTER y=-2 to y=-3.
+- No slot renderer, cache bootstrap, currency, character-list, or item-use logic changed.
+alpha0.34:
+- Fixed Wrath sorting oscillation for equal/same-type items: the 3.3.5a location-based pseudo-GUID is no longer used as the final sort tie-breaker; equal items keep their current physical order.
+- Exact equivalent occupied stacks (same link and count) are treated as already satisfied instead of being pointlessly swapped.
+- Wrath now executes only one physical sort move per pass, then rescans/replans after the bag cache update. This prevents stale precomputed swap pairs from immediately undoing each other on 3.3.5a.
+- Existing 5-second hard sorting watchdog remains in place as a fallback, but should no longer be the normal way an oscillating sort terminates.
+
+
+alpha0.42:
+- Removed the partial global `Settings` compatibility namespace. Baganator/Syndicator now use a private 3.3.5a options helper, preventing other addons from detecting a fake modern Settings API and entering unsupported code paths.
+- Empty-slot/background chrome is anchored directly to item buttons instead of item icon regions, fixing stale/missing slot visuals after moving/sorting items and then dragging the bag window.
+- Left and right title-bar button chrome now use the same bounds and top alignment; the old left-only 2px inset was removed.
+- Keyring/special-container icons are explicitly preserved/restored across 3.3.5a region sanitization and pooled layout refreshes.
+
+
+v1.0.0:
+- First Disruption01 release candidate for World of Warcraft 3.3.5a build 12340.
+- Promotes the tested alpha0.42 compatibility baseline to semantic version 1.0.0.
+- Adds visible upstream/backport credits in the Baganator and Syndicator settings UIs.
+- Adds Disruption01 metadata and a coloured v1.0.0 suffix in the WoW AddOns list.

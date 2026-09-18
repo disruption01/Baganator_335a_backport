@@ -1,0 +1,117 @@
+<Ui>
+  <Button name="BaganatorRetailBagSlotButtonTemplate" virtual="true">
+    <Size x="37" y="37" />
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorRetailBagSlotButtonMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnClick>
+        self:OnClick(button, down)
+      </OnClick>
+      <OnClick>
+        self:OnClick(button, down)
+      </OnClick>
+      <OnEnter>
+        self:OnEnter()
+      </OnEnter>
+      <OnLeave>
+        self:OnLeave()
+      </OnLeave>
+      <OnDragStart>
+        self:OnDragStart()
+      </OnDragStart>
+      <OnReceiveDrag>
+        self:OnReceiveDrag()
+      </OnReceiveDrag>
+    </Scripts>
+  </Button>
+
+  <Button name="BaganatorClassicBagSlotButtonTemplate" virtual="true" inherits="ItemButtonTemplate">
+    <Size x="37" y="37" />
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorClassicBagSlotButtonMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnClick>
+        self:OnClick(button, down)
+      </OnClick>
+      <OnEnter>
+        self:OnEnter()
+      </OnEnter>
+      <OnLeave>
+        self:OnLeave()
+      </OnLeave>
+      <OnDragStart>
+        self:OnDragStart()
+      </OnDragStart>
+      <OnReceiveDrag>
+        self:OnReceiveDrag()
+      </OnReceiveDrag>
+    </Scripts>
+  </Button>
+
+  <Button name="BaganatorRetailBankButtonTemplate" virtual="true">
+    <Size x="37" y="37" />
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorRetailBankButtonMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnClick>
+        self:OnClick(button, down)
+      </OnClick>
+      <OnEnter>
+        self:OnEnter()
+      </OnEnter>
+      <OnLeave>
+        self:OnLeave()
+      </OnLeave>
+      <OnDragStart>
+        self:OnDragStart()
+      </OnDragStart>
+      <OnReceiveDrag>
+        self:OnReceiveDrag()
+      </OnReceiveDrag>
+    </Scripts>
+  </Button>
+
+  <Button name="BaganatorClassicBankButtonTemplate" virtual="true" inherits="ItemButtonTemplate">
+    <Size x="37" y="37" />
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorClassicBankButtonMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnClick>
+        self:OnClick(button, down)
+      </OnClick>
+      <OnEnter>
+        self:OnEnter()
+      </OnEnter>
+      <OnLeave>
+        self:OnLeave()
+      </OnLeave>
+      <OnDragStart>
+        self:OnDragStart()
+      </OnDragStart>
+      <OnReceiveDrag>
+        self:OnReceiveDrag()
+      </OnReceiveDrag>
+    </Scripts>
+  </Button>
+
+  <Frame name="BaganatorBagSlotsContainerTemplate" virtual="true">
+    <Size x="1" y="1" />
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorBagSlotsContainerMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnEvent>
+        self:OnEvent(event, ...)
+      </OnEvent>
+    </Scripts>
+  </Frame>
+</Ui>

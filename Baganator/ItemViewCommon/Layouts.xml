@@ -1,0 +1,218 @@
+<Ui>
+  <Frame name="BaganatorBagSearchLayoutMonitorTemplate" virtual="true">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorBagSearchLayoutMonitorMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+    </Scripts>
+  </Frame>
+
+  <Frame name="BaganatorGuildSearchLayoutMonitorTemplate" virtual="true">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorGuildSearchLayoutMonitorMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+    </Scripts>
+  </Frame>
+
+  <Frame name="BaganatorCachedBagLayoutTemplate" virtual="true">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorCachedBagLayoutMixin)
+        Baganator335Compat.ParentKey(self, nil, 'Layouts')
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnShow>
+        self:OnShow()
+      </OnShow>
+      <OnHide>
+        self:OnHide()
+      </OnHide>
+    </Scripts>
+  </Frame>
+
+  <Frame name="BaganatorCachedGuildLayoutTemplate" virtual="true">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorGeneralGuildLayoutMixin)
+        Baganator335Compat.ParentKey(self, nil, 'Layouts')
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnShow>
+        self:OnShow()
+      </OnShow>
+      <OnHide>
+        self:OnHide()
+      </OnHide>
+    </Scripts>
+  </Frame>
+
+  <Frame name="BaganatorCachedUnifiedGuildLayoutTemplate" virtual="true">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorUnifiedGuildLayoutMixin)
+        Baganator335Compat.ParentKey(self, nil, 'Layouts')
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnShow>
+        self:OnShow()
+      </OnShow>
+      <OnHide>
+        self:OnHide()
+      </OnHide>
+    </Scripts>
+  </Frame>
+
+  <Frame name="BaganatorLiveBagLayoutTemplate" virtual="true">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorLiveBagLayoutMixin)
+        Baganator335Compat.ParentKey(self, nil, 'Layouts')
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnShow>
+        self:OnShow()
+      </OnShow>
+      <OnHide>
+        self:OnHide()
+      </OnHide>
+      <OnEvent>
+        self:OnEvent(event, ...)
+      </OnEvent>
+    </Scripts>
+  </Frame>
+
+  <Frame name="BaganatorLiveCategoryLayoutTemplate" virtual="true">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorLiveCategoryLayoutMixin)
+        Baganator335Compat.ParentKey(self, nil, 'Layouts')
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnShow>
+        self:OnShow()
+      </OnShow>
+      <OnHide>
+        self:OnHide()
+      </OnHide>
+      <OnEvent>
+        self:OnEvent(event, ...)
+      </OnEvent>
+    </Scripts>
+  </Frame>
+
+  <Frame name="BaganatorCachedCategoryLayoutTemplate" virtual="true">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorCachedCategoryLayoutMixin)
+        Baganator335Compat.ParentKey(self, nil, 'Layouts')
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnShow>
+        self:OnShow()
+      </OnShow>
+      <OnHide>
+        self:OnHide()
+      </OnHide>
+    </Scripts>
+  </Frame>
+
+  <Frame name="BaganatorLiveGuildLayoutTemplate" virtual="true">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorLiveGuildLayoutMixin)
+        Baganator335Compat.ParentKey(self, nil, 'Layouts')
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnShow>
+        self:OnShow()
+      </OnShow>
+      <OnHide>
+        self:OnHide()
+      </OnHide>
+      <OnEvent>
+        self:OnEvent(event, ...)
+      </OnEvent>
+    </Scripts>
+  </Frame>
+
+  <Frame name="BaganatorLiveUnifiedGuildLayoutTemplate" virtual="true">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorLiveUnifiedGuildLayoutMixin)
+        Baganator335Compat.ParentKey(self, nil, 'Layouts')
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnShow>
+        self:OnShow()
+      </OnShow>
+      <OnHide>
+        self:OnHide()
+      </OnHide>
+      <OnEvent>
+        self:OnEvent(event, ...)
+      </OnEvent>
+    </Scripts>
+  </Frame>
+
+  <Frame name="BaganatorLiveWarbandLayoutTemplate" virtual="true">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorLiveWarbandLayoutMixin)
+        Baganator335Compat.ParentKey(self, nil, 'Layouts')
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnShow>
+        self:OnShow()
+      </OnShow>
+      <OnHide>
+        self:OnHide()
+      </OnHide>
+      <OnEvent>
+        self:OnEvent(event, ...)
+      </OnEvent>
+    </Scripts>
+  </Frame>
+
+  <Frame name="BaganatorCachedWarbandLayoutTemplate" virtual="true">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorCachedWarbandLayoutMixin)
+        Baganator335Compat.ParentKey(self, nil, 'Layouts')
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnShow>
+        self:OnShow()
+      </OnShow>
+      <OnHide>
+        self:OnHide()
+      </OnHide>
+    </Scripts>
+  </Frame>
+
+  <Frame name="BaganatorBagDividerTemplate" virtual="true">
+    <Anchors>
+      <Anchor point="TOPLEFT" />
+      <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" />
+    </Anchors>
+    <Scripts>
+      <OnLoad>
+        if self:GetName() then self['Divider'] = _G[self:GetName() .. 'Divider'] end
+        Mixin(self, BaganatorBagDividerMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+    </Scripts>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture name="$parentDivider">
+          <Anchors>
+            <Anchor point="TOPLEFT" />
+            <Anchor point="TOPRIGHT" />
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>

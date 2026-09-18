@@ -1,0 +1,57 @@
+<Ui>
+  <Frame name="BaganatorSingleViewBankViewWarbandViewTemplate" virtual="true" inherits="BaganatorItemViewCommonBankViewWarbandViewTemplate">
+    <Scripts><OnLoad>
+        Mixin(self, BaganatorItemViewCommonBankViewWarbandViewMixin)
+        if BaganatorItemViewCommonBankViewWarbandViewMixin.OnLoad then BaganatorItemViewCommonBankViewWarbandViewMixin.OnLoad(self) end
+        Mixin(self, BaganatorSingleViewBankViewWarbandViewMixin)
+        if BaganatorSingleViewBankViewWarbandViewMixin.OnLoad then BaganatorSingleViewBankViewWarbandViewMixin.OnLoad(self) end
+      </OnLoad></Scripts><Frames>
+      <Frame name="$parentCompat1">
+        <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'Container')
+      </OnLoad></Scripts><Frames>
+          <Frame inherits="BaganatorLiveWarbandLayoutTemplate" name="$parentBankTabLive">
+            <Anchors>
+              <Anchor point="TOPLEFT" x="13" y="-50" />
+            </Anchors>
+          <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'BankTabLive')
+        Mixin(self, BaganatorLiveWarbandLayoutMixin)
+                Baganator335Compat.ParentKey(self, nil, 'Layouts')
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+          <Frame inherits="BaganatorCachedWarbandLayoutTemplate" name="$parentBankTabCached">
+            <Anchors>
+              <Anchor point="TOPLEFT" x="13" y="-50" />
+            </Anchors>
+          <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'BankTabCached')
+        Mixin(self, BaganatorCachedWarbandLayoutMixin)
+                Baganator335Compat.ParentKey(self, nil, 'Layouts')
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+          <Frame inherits="BaganatorLiveBagLayoutTemplate" name="$parentBankUnifiedLive">
+            <Anchors>
+              <Anchor point="TOPLEFT" x="13" y="-50" />
+            </Anchors>
+          <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'BankUnifiedLive')
+        Mixin(self, BaganatorLiveBagLayoutMixin)
+                Baganator335Compat.ParentKey(self, nil, 'Layouts')
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+          <Frame inherits="BaganatorCachedBagLayoutTemplate" name="$parentBankUnifiedCached">
+            <Anchors>
+              <Anchor point="TOPLEFT" x="13" y="-50" />
+            </Anchors>
+          <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'BankUnifiedCached')
+        Mixin(self, BaganatorCachedBagLayoutMixin)
+                Baganator335Compat.ParentKey(self, nil, 'Layouts')
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+        </Frames>
+      </Frame>
+    </Frames>
+  </Frame>
+</Ui>

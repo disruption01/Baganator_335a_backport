@@ -1,0 +1,74 @@
+<Ui>
+  <Frame name="BaganatorItemViewCommonBankViewTemplate" virtual="true" hidden="true" topLevel="true" enableMouse="true" inherits="ButtonFrameTemplate">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorItemViewCommonBankViewMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnEvent>
+        self:OnEvent(event, ...)
+      </OnEvent>
+      <OnShow>
+        self:OnShow()
+      </OnShow>
+      <OnHide>
+        self:OnHide()
+      </OnHide>
+      <OnDragStart>
+        self:OnDragStart()
+      </OnDragStart>
+      <OnDragStop>
+        self:OnDragStop()
+      </OnDragStop>
+    </Scripts>
+    <Frames>
+      <Button inherits="BaganatorCustomiseButtonTemplate" frameLevel="700" name="$parentCustomiseButton">
+        <Anchors>
+          <Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parentCloseButton" />
+          <Anchor point="TOP" y="-1" />
+        </Anchors>
+      <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'CustomiseButton', 'AllFixedButtons')
+      </OnLoad></Scripts></Button>
+      <Button inherits="BaganatorSortButtonTemplate" frameLevel="700" registerForClicks="LeftButtonUp,RightButtonUp" hidden="true" name="$parentSortButton">
+        <Anchors>
+          <Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parentCustomiseButton" />
+        </Anchors>
+        <Scripts>
+          <OnLoad>
+        Baganator335Compat.ParentKey(self, 'SortButton', 'AllFixedButtons')
+      </OnLoad><OnClick>
+            self:GetParent().currentTab:CombineStacksAndSort(button == "RightButton")
+          </OnClick>
+          <OnEnter>
+            self.tooltipText = self:GetParent():GetExternalSortMethodName()
+          </OnEnter>
+        </Scripts>
+      </Button>
+      <Button inherits="BaganatorTransferButtonTemplate" frameLevel="700" name="$parentTransferButton">
+        <Anchors>
+          <Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parentSortButton" />
+        </Anchors>
+        <Scripts>
+          <OnLoad>
+        self['tooltipText'] = _G['BAGANATOR_L_TRANSFER_BANK_VIEW_TOOLTIP_TEXT']
+        Baganator335Compat.ParentKey(self, 'TransferButton', 'AllFixedButtons')
+      </OnLoad><OnClick>
+            self:GetParent():Transfer()
+          </OnClick>
+        </Scripts>
+      </Button>
+
+      <Frame inherits="BaganatorSearchWidgetTemplate" name="$parentSearchWidget"><Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'SearchWidget')
+        Mixin(self, BaganatorSearchWidgetMixin)
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+      <Frame inherits="BaganatorItemViewButtonVisibilityTemplate" name="$parentButtonVisibility"><Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'ButtonVisibility')
+        Mixin(self, BaganatorItemViewButtonVisibilityMixin)
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+    </Frames>
+  </Frame>
+</Ui>

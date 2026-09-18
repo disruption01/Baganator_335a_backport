@@ -1,0 +1,104 @@
+<Ui>
+  <Frame name="BaganatorCustomiseDialogCategoriesEditorTemplate" virtual="true">
+    <Size x="300" y="620" />
+    <Scripts>
+      <OnLoad>
+        if self:GetName() then self['GroupLabel'] = _G[self:GetName() .. 'GroupLabel'] end
+        if self:GetName() then self['GroupLabel'] = _G[self:GetName() .. 'GroupLabel'] end
+        if self:GetName() then self['SearchLabel'] = _G[self:GetName() .. 'SearchLabel'] end
+        if self:GetName() then self['NameLabel'] = _G[self:GetName() .. 'NameLabel'] end
+        Mixin(self, BaganatorCustomiseDialogCategoriesEditorMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnHide>
+        self:OnHide()
+      </OnHide>
+    </Scripts>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <FontString inherits="GameFontHighlight" text="NAME" name="$parentNameLabel">
+          <Anchors>
+            <Anchor point="TOPLEFT" x="15" />
+          </Anchors>
+        </FontString>
+        <FontString inherits="GameFontHighlight" text="SEARCH" name="$parentSearchLabel">
+          <Anchors>
+            <Anchor point="TOPLEFT" x="15" y="-50" />
+          </Anchors>
+        </FontString>
+        <FontString inherits="GameFontHighlight" text="BAGANATOR_L_GROUP_BY" name="$parentGroupLabel">
+          <Anchors>
+            <Anchor point="TOPLEFT" x="15" y="-105" />
+          </Anchors>
+        </FontString>
+        <FontString inherits="GameFontHighlight" text="BAGANATOR_L_SHOW_IN" name="$parentGroupLabel">
+          <Anchors>
+            <Anchor point="TOPLEFT" x="15" y="-160" />
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+    <Frames>
+      <EditBox autoFocus="false" inherits="InputBoxTemplate" letters="100" name="$parentCategoryName">
+        <Size y="30" />
+        <Anchors>
+          <Anchor point="TOPLEFT" x="20" y="-15" />
+          <Anchor point="RIGHT" x="-10" />
+        </Anchors>
+      <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'CategoryName', 'ChangeAlpha')
+      </OnLoad></Scripts></EditBox>
+      <Button inherits="BaganatorHelpButtonTemplate" name="$parentHelpButton">
+        <Anchors>
+          <Anchor point="RIGHT" x="-10" />
+          <Anchor point="CENTER" relativeTo="$parentSearchLabel" />
+        </Anchors>
+      <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'HelpButton', 'ChangeAlpha')
+      </OnLoad></Scripts></Button>
+      <Button inherits="BaganatorTooltipIconButtonTemplate" name="$parentChangeSearchModeButton">
+        <Anchors>
+          <Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parentHelpButton" />
+        </Anchors>
+        <Scripts><OnLoad>
+        if self:GetName() then self['Icon'] = _G[self:GetName() .. 'Icon'] end
+        Baganator335Compat.ParentKey(self, 'ChangeSearchModeButton', 'ChangeAlpha')
+      </OnLoad></Scripts><Layers>
+          <Layer level="ARTWORK">
+            <Texture file="Interface\AddOns\Baganator\Assets\GuildTabText.tga" name="$parentIcon">
+              <Size x="14" y="14" />
+              <Anchors>
+                <Anchor point="CENTER" />
+              </Anchors>
+            </Texture>
+          </Layer>
+        </Layers>
+      </Button>
+      <EditBox autoFocus="false" inherits="InputBoxTemplate" letters="800" name="$parentTextCategorySearch">
+        <Size y="30" />
+        <Anchors>
+          <Anchor point="TOPLEFT" x="20" y="-65" />
+          <Anchor point="RIGHT" x="-10" />
+        </Anchors>
+      <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'TextCategorySearch', 'ChangeAlpha')
+      </OnLoad></Scripts></EditBox>
+
+      <Button text="BAGANATOR_L_EXPORT" inherits="UIPanelButtonTemplate" name="$parentExportButton">
+        <Anchors>
+          <Anchor point="BOTTOMLEFT" x="15" y="0" />
+        </Anchors>
+      <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'ExportButton', 'ChangeAlpha')
+      </OnLoad></Scripts></Button>
+
+      <Button text="DELETE" inherits="UIPanelButtonTemplate" name="$parentDeleteButton">
+        <Anchors>
+          <Anchor point="BOTTOMRIGHT" x="-10" y="0" />
+        </Anchors>
+      <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'DeleteButton', 'ChangeAlpha')
+      </OnLoad></Scripts></Button>
+    </Frames>
+  </Frame>
+</Ui>

@@ -1,0 +1,63 @@
+<Ui>
+  <Frame name="BaganatorItemViewCommonBankViewCharacterTabsViewTemplate" virtual="true">
+    <Scripts>
+      <OnLoad>
+        if self:GetName() then self['Money'] = _G[self:GetName() .. 'Money'] end
+        if self:GetName() then self['BankMissingHint'] = _G[self:GetName() .. 'BankMissingHint'] end
+        Mixin(self, BaganatorItemViewCommonBankViewCharacterTabsViewMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnShow>
+        self:OnShow()
+      </OnShow>
+    </Scripts>
+    <Frames>
+      <Frame clampedToScreen="true" hidden="true" name="$parentTabSettingsMenu">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="40" y="5" relativeTo="$parent" />
+        </Anchors>
+      <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'TabSettingsMenu')
+      </OnLoad></Scripts></Frame>
+
+      <Button inherits="BaganatorAllCharactersButtonTemplate" frameLevel="700" name="$parentToggleAllCharacters">
+        <Anchors>
+          <Anchor point="TOPLEFT" x="5" y="-1" relativeTo="$parent" />
+        </Anchors>
+      <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'ToggleAllCharacters', 'TopButtons')
+      </OnLoad></Scripts></Button>
+
+      <Frame inherits="BaganatorCurrencyWidgetTemplate" name="$parentCurrencyWidget"><Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'CurrencyWidget')
+        if self:GetName() then self['Money'] = _G[self:GetName() .. 'Money'] end
+                Mixin(self, BaganatorCurrencyWidgetMixin)
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+
+      <Button inherits="UIPanelButtonTemplate" text="BAGANATOR_L_DEPOSIT_REAGENTS" name="$parentDepositReagentsButton">
+        <Scripts>
+          <OnLoad>
+        Baganator335Compat.ParentKey(self, 'DepositReagentsButton', 'LiveButtons')
+      </OnLoad><OnClick>
+            C_Bank.AutoDepositItemsIntoBank(Enum.BankType.Character)
+          </OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <FontString inherits="GameFontHighlight" text="BAGANATOR_L_BANK_DATA_MISSING_HINT" name="$parentBankMissingHint">
+          <Anchors>
+            <Anchor point="LEFT" x="20" />
+          </Anchors>
+        </FontString>
+        <FontString inherits="GameFontHighlight" enableMouse="true" name="$parentMoney">
+          <Anchors>
+            <Anchor point="BOTTOMRIGHT" x="-10" y="10" />
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>

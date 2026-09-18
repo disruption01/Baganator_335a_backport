@@ -1,0 +1,40 @@
+<Ui>
+  <Frame name="BaganatorSearchWidgetTemplate" virtual="true">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorSearchWidgetMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnShow>
+        self:OnShow()
+      </OnShow>
+      <OnHide>
+        self:OnHide()
+      </OnHide>
+    </Scripts>
+    <Frames>
+      <EditBox inherits="InputBoxTemplate" autoFocus="false" frameLevel="700" name="$parentSearchBox">
+        <Size y="22" />
+      <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'SearchBox')
+      </OnLoad></Scripts></EditBox>
+      <Button inherits="BaganatorHelpButtonTemplate" name="$parentHelpButton"><Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'HelpButton')
+      </OnLoad></Scripts></Button>
+      <Button inherits="BaganatorMegaSearchButtonTemplate" name="$parentGlobalSearchButton">
+        <Scripts>
+          <OnLoad>
+        Baganator335Compat.ParentKey(self, 'GlobalSearchButton')
+      </OnLoad><OnClick>
+            local text = self:GetParent().SearchBox:GetText()
+            Syndicator.Search.RunMegaSearchAndPrintResults(text)
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button inherits="BaganatorSavedSearchesButtonTemplate" name="$parentSavedSearchesButton">
+      <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'SavedSearchesButton')
+      </OnLoad></Scripts></Button>
+    </Frames>
+  </Frame>
+</Ui>

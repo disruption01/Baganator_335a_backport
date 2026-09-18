@@ -1,0 +1,43 @@
+<Ui>
+  <Frame name="BaganatorCustomiseDialogCategoriesSectionEditorTemplate" virtual="true">
+    <Size x="300" y="80" />
+    <Scripts>
+      <OnLoad>
+        if self:GetName() then self['NameLabel'] = _G[self:GetName() .. 'NameLabel'] end
+        Mixin(self, BaganatorCustomiseDialogCategoriesSectionEditorMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnHide>
+        self:OnHide()
+      </OnHide>
+    </Scripts>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <FontString inherits="GameFontHighlight" text="NAME" name="$parentNameLabel">
+          <Anchors>
+            <Anchor point="TOPLEFT" x="15" />
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+    <Frames>
+      <EditBox autoFocus="false" inherits="InputBoxTemplate" letters="100" name="$parentSectionName">
+        <Size y="30" />
+        <Anchors>
+          <Anchor point="TOPLEFT" x="20" y="-15" />
+          <Anchor point="RIGHT" x="-10" />
+        </Anchors>
+      <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'SectionName', 'ChangeAlpha')
+      </OnLoad></Scripts></EditBox>
+
+      <Button text="DELETE" inherits="UIPanelButtonTemplate" name="$parentDeleteButton">
+        <Anchors>
+          <Anchor point="BOTTOMRIGHT" x="-15" y="0" />
+        </Anchors>
+      <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'DeleteButton', 'ChangeAlpha')
+      </OnLoad></Scripts></Button>
+    </Frames>
+  </Frame>
+</Ui>

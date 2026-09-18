@@ -1,0 +1,9 @@
+<Ui>
+  <Frame name="SyndicatorOfflineListSearchTemplate" virtual="true">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, SyndicatorOfflineListSearchMixin)
+      </OnLoad>
+    </Scripts>
+  </Frame>
+</Ui>

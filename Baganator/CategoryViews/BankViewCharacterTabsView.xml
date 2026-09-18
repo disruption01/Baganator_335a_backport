@@ -1,0 +1,19 @@
+<Ui>
+  <Frame name="BaganatorCategoryViewBankViewCharacterTabsViewTemplate" virtual="true" inherits="BaganatorItemViewCommonBankViewCharacterTabsViewTemplate">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorItemViewCommonBankViewCharacterTabsViewMixin)
+        if BaganatorItemViewCommonBankViewCharacterTabsViewMixin.OnLoad then BaganatorItemViewCommonBankViewCharacterTabsViewMixin.OnLoad(self) end
+        Mixin(self, BaganatorCategoryViewBankViewCharacterTabsViewMixin)
+        if BaganatorCategoryViewBankViewCharacterTabsViewMixin.OnLoad then BaganatorCategoryViewBankViewCharacterTabsViewMixin.OnLoad(self) end
+      </OnLoad><OnEvent>
+        self:OnEvent(event, ...)
+      </OnEvent>
+    </Scripts>
+    <Frames>
+      <Frame name="$parentContainer"><Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'Container')
+      </OnLoad></Scripts></Frame>
+    </Frames>
+  </Frame>
+</Ui>

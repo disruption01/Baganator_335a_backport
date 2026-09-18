@@ -1,0 +1,75 @@
+<Ui>
+  <Frame name="BaganatorItemViewCommonBankViewCharacterViewTemplate" virtual="true">
+    <Scripts>
+      <OnLoad>
+        if self:GetName() then self['BankMissingHint'] = _G[self:GetName() .. 'BankMissingHint'] end
+        Mixin(self, BaganatorItemViewCommonBankViewCharacterViewMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+    </Scripts>
+    <Frames>
+      <Button inherits="BaganatorAllCharactersButtonTemplate" frameLevel="700" name="$parentToggleAllCharacters">
+        <Anchors>
+          <Anchor point="TOPLEFT" x="5" y="-1" relativeTo="$parent" />
+        </Anchors>
+      <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'ToggleAllCharacters', 'TopButtons')
+      </OnLoad></Scripts></Button>
+      <Button inherits="BaganatorToggleBagSlotsButtonTemplate" frameLevel="700" name="$parentToggleBagSlotsButton">
+        <Anchors>
+          <Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parentToggleAllCharacters" />
+        </Anchors>
+        <Scripts>
+          <OnLoad>
+        Baganator335Compat.ParentKey(self, 'ToggleBagSlotsButton', 'TopButtons')
+      </OnLoad><OnClick>
+            self:GetParent():ToggleBagSlots()
+          </OnClick>
+        </Scripts>
+      </Button>
+
+      <Frame inherits="BaganatorCurrencyWidgetTemplate" name="$parentCurrencyWidget"><Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'CurrencyWidget')
+        if self:GetName() then self['Money'] = _G[self:GetName() .. 'Money'] end
+                Mixin(self, BaganatorCurrencyWidgetMixin)
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+
+      <Button inherits="UIPanelButtonTemplate" text="BAGANATOR_L_DEPOSIT_REAGENTS" name="$parentDepositIntoReagentsBankButton">
+        <Scripts>
+          <OnLoad>
+        Baganator335Compat.ParentKey(self, 'DepositIntoReagentsBankButton', 'LiveButtons')
+      </OnLoad><OnClick>
+            DepositReagentBank()
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button inherits="UIPanelButtonTemplate" text="BAGANATOR_L_BUY_REAGENT_BANK" name="$parentBuyReagentBankButton">
+        <Scripts>
+          <OnLoad>
+        Baganator335Compat.ParentKey(self, 'BuyReagentBankButton', 'LiveButtons')
+      </OnLoad><OnClick>
+            self:GetParent():BuyReagentBank()
+          </OnClick>
+        </Scripts>
+      </Button>
+
+      <Frame inherits="BaganatorBagSlotsContainerTemplate" name="$parentBagSlots">
+        <Scripts><OnLoad>
+        self['mode'] = 'bank'
+        Baganator335Compat.ParentKey(self, 'BagSlots')
+        Mixin(self, BaganatorBagSlotsContainerMixin)
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+    </Frames>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <FontString inherits="GameFontHighlight" text="BAGANATOR_L_BANK_DATA_MISSING_HINT" name="$parentBankMissingHint">
+          <Anchors>
+            <Anchor point="LEFT" x="20" />
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>

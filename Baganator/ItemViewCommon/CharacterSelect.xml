@@ -1,0 +1,64 @@
+<Ui>
+  <Frame name="BaganatorCharacterSelectTemplate" virtual="true" inherits="ButtonFrameTemplate" enableMouse="true" hidden="true" topLevel="true">
+    <Size x="300" y="430" />
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorCharacterSelectMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnShow>
+        self:OnShow()
+      </OnShow>
+      <OnDragStart>
+        self:OnDragStart()
+      </OnDragStart>
+      <OnDragStop>
+        self:OnDragStop()
+      </OnDragStop>
+    </Scripts>
+    <Frames>
+      <EditBox inherits="InputBoxTemplate" name="$parentSearchBox">
+        <Size y="22" />
+        <Anchors>
+          <Anchor point="TOPRIGHT" x="-20" y="-25" />
+          <Anchor point="TOPLEFT" x="20" y="-25" />
+        </Anchors>
+      <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'SearchBox')
+      </OnLoad></Scripts></EditBox>
+      <Slider inherits="UIPanelScrollBarTemplate" name="$parentScrollBar">
+        <Anchors>
+          <Anchor point="TOPRIGHT" y="-55" x="-12" />
+          <Anchor point="BOTTOMRIGHT" y="37" />
+        </Anchors>
+      <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'ScrollBar')
+      </OnLoad></Scripts></Slider>
+      <Frame name="$parentScrollBox">
+        <Anchors>
+          <Anchor point="TOPLEFT" y="-50" />
+          <Anchor point="BOTTOMRIGHT" y="3" x="-3" relativeTo="$parentScrollBar" />
+        </Anchors>
+      <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'ScrollBox')
+      </OnLoad></Scripts></Frame>
+
+      <Button inherits="UIPanelButtonTemplate" text="BAGANATOR_L_MANAGE_CHARACTERS" name="$parentManageCharactersButton">
+        <Scripts>
+          <OnLoad>
+        Baganator335Compat.ParentKey(self, 'ManageCharactersButton')
+      </OnLoad><OnClick>
+            if SYNDICATOR_335 and Syndicator335Compat and Syndicator335Compat.OpenOptionsCategory then
+              Syndicator335Compat.OpenOptionsCategory(Syndicator.OptionsCategory and Syndicator.OptionsCategory:GetID() or SYNDICATOR_L_SYNDICATOR)
+            elseif Settings and Settings.OpenToCategory then
+              Settings.OpenToCategory(Syndicator.OptionsCategory and Syndicator.OptionsCategory:GetID() or SYNDICATOR_L_SYNDICATOR)
+            end
+          </OnClick>
+        </Scripts>
+        <Anchors>
+          <Anchor point="BOTTOM" y="10" />
+        </Anchors>
+      </Button>
+    </Frames>
+  </Frame>
+</Ui>

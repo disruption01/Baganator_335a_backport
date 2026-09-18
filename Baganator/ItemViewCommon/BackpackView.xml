@@ -1,0 +1,118 @@
+<Ui>
+  <Frame name="BaganatorItemViewCommonBackpackViewTemplate" virtual="true" hidden="true" topLevel="true" enableMouse="true" inherits="ButtonFrameTemplate">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorItemViewCommonBackpackViewMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnShow>
+        self:OnShow()
+      </OnShow>
+      <OnHide>
+        self:OnHide()
+      </OnHide>
+      <OnDragStart>
+        self:OnDragStart()
+      </OnDragStart>
+      <OnDragStop>
+        self:OnDragStop()
+      </OnDragStop>
+    </Scripts>
+    <Frames>
+      <Button inherits="BaganatorCustomiseButtonTemplate" frameLevel="700" name="$parentCustomiseButton">
+        <Anchors>
+          <Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parentCloseButton" />
+          <Anchor point="TOP" y="-1" />
+        </Anchors>
+      <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'CustomiseButton', 'AllFixedButtons')
+      </OnLoad></Scripts></Button>
+      <Button inherits="BaganatorSortButtonTemplate" frameLevel="700" registerForClicks="LeftButtonUp,RightButtonUp" hidden="true" name="$parentSortButton">
+        <Anchors>
+          <Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parentCustomiseButton" />
+        </Anchors>
+        <Scripts>
+          <OnLoad>
+        Baganator335Compat.ParentKey(self, 'SortButton', 'AllFixedButtons')
+      </OnLoad><OnClick>
+            self:GetParent():CombineStacksAndSort(button == "RightButton")
+          </OnClick>
+          <OnEnter>
+            self.tooltipText = self:GetParent():GetExternalSortMethodName()
+          </OnEnter>
+        </Scripts>
+      </Button>
+      <Button inherits="BaganatorTransferButtonTemplate" frameLevel="700" name="$parentTransferButton">
+        <Anchors>
+          <Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parentSortButton" />
+        </Anchors>
+        <Scripts>
+          <OnLoad>
+        Baganator335Compat.ParentKey(self, 'TransferButton', 'AllFixedButtons')
+      </OnLoad><OnClick>
+            self:GetParent():Transfer()
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button inherits="BaganatorBankButtonTemplate" frameLevel="700" name="$parentToggleBankButton">
+        <Scripts>
+          <OnLoad>
+        Baganator335Compat.ParentKey(self, 'ToggleBankButton', 'TopButtons')
+      </OnLoad><OnClick>
+            self:GetParent():ToggleBank()
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button inherits="BaganatorGuildBankButtonTemplate" frameLevel="700" name="$parentToggleGuildBankButton">
+        <Scripts>
+          <OnLoad>
+        Baganator335Compat.ParentKey(self, 'ToggleGuildBankButton', 'TopButtons')
+      </OnLoad><OnClick>
+            self:GetParent():ToggleGuildBank()
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button inherits="BaganatorAllCharactersButtonTemplate" frameLevel="700" name="$parentToggleAllCharacters"><Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'ToggleAllCharacters', 'TopButtons')
+      </OnLoad></Scripts></Button>
+      <Button inherits="BaganatorToggleBagSlotsButtonTemplate" frameLevel="700" name="$parentToggleBagSlotsButton">
+        <Scripts>
+          <OnLoad>
+        Baganator335Compat.ParentKey(self, 'ToggleBagSlotsButton', 'TopButtons')
+      </OnLoad><OnClick>
+            self:GetParent():ToggleBagSlots()
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button inherits="BaganatorCurrencyButtonTemplate" frameLevel="700" name="$parentCurrencyButton"><Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'CurrencyButton')
+      </OnLoad></Scripts></Button>
+
+      <Frame inherits="BaganatorSearchWidgetTemplate" name="$parentSearchWidget"><Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'SearchWidget')
+        Mixin(self, BaganatorSearchWidgetMixin)
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+      <Frame inherits="BaganatorItemViewButtonVisibilityTemplate" name="$parentButtonVisibility"><Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'ButtonVisibility')
+        Mixin(self, BaganatorItemViewButtonVisibilityMixin)
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+
+      <Frame inherits="BaganatorCurrencyWidgetTemplate" name="$parentCurrencyWidget"><Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'CurrencyWidget')
+        if self:GetName() then self['Money'] = _G[self:GetName() .. 'Money'] end
+                Mixin(self, BaganatorCurrencyWidgetMixin)
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+
+      <Frame inherits="BaganatorBagSlotsContainerTemplate" name="$parentBagSlots">
+        <Scripts><OnLoad>
+        self['mode'] = 'bags'
+        Baganator335Compat.ParentKey(self, 'BagSlots')
+        Mixin(self, BaganatorBagSlotsContainerMixin)
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+    </Frames>
+  </Frame>
+</Ui>

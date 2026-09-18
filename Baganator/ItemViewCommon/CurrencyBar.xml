@@ -1,0 +1,19 @@
+<Ui>
+  <Frame name="BaganatorCurrencyWidgetTemplate" virtual="true">
+    <Scripts>
+      <OnLoad>
+        if self:GetName() then self['Money'] = _G[self:GetName() .. 'Money'] end
+        Mixin(self, BaganatorCurrencyWidgetMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnShow>
+        self:OnShow()
+      </OnShow>
+    </Scripts>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <FontString inherits="GameFontHighlight" enableMouse="true" name="$parentMoney" />
+      </Layer>
+    </Layers>
+  </Frame>
+</Ui>

@@ -1,0 +1,22 @@
+<Ui>
+  <Frame name="BaganatorCategoryViewBackpackViewTemplate" virtual="true" inherits="BaganatorItemViewCommonBackpackViewTemplate">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorItemViewCommonBackpackViewMixin)
+        if BaganatorItemViewCommonBackpackViewMixin.OnLoad then BaganatorItemViewCommonBackpackViewMixin.OnLoad(self) end
+        Mixin(self, BaganatorCategoryViewBackpackViewMixin)
+        if BaganatorCategoryViewBackpackViewMixin.OnLoad then BaganatorCategoryViewBackpackViewMixin.OnLoad(self) end
+      </OnLoad><OnEvent>
+        self:OnEvent(event, ...)
+      </OnEvent>
+      <OnHide>
+        self:OnHide()
+      </OnHide>
+    </Scripts>
+    <Frames>
+      <Frame name="$parentContainer"><Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'Container')
+      </OnLoad></Scripts></Frame>
+    </Frames>
+  </Frame>
+</Ui>

@@ -1,0 +1,37 @@
+<Ui>
+  <Frame name="BaganatorSingleViewBankViewCharacterViewTemplate" virtual="true" inherits="BaganatorItemViewCommonBankViewCharacterViewTemplate">
+    <Scripts><OnLoad>
+        Mixin(self, BaganatorItemViewCommonBankViewCharacterViewMixin)
+        if BaganatorItemViewCommonBankViewCharacterViewMixin.OnLoad then BaganatorItemViewCommonBankViewCharacterViewMixin.OnLoad(self) end
+        Mixin(self, BaganatorSingleViewBankViewCharacterViewMixin)
+        if BaganatorSingleViewBankViewCharacterViewMixin.OnLoad then BaganatorSingleViewBankViewCharacterViewMixin.OnLoad(self) end
+      </OnLoad></Scripts><Frames>
+      <Frame name="$parentCompat1">
+        <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'Container')
+      </OnLoad></Scripts><Frames>
+          <Frame inherits="BaganatorLiveBagLayoutTemplate" name="$parentBankLive">
+            <Anchors>
+              <Anchor point="TOPLEFT" x="13" y="-50" />
+            </Anchors>
+          <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'BankLive')
+        Mixin(self, BaganatorLiveBagLayoutMixin)
+                Baganator335Compat.ParentKey(self, nil, 'Layouts')
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+          <Frame inherits="BaganatorCachedBagLayoutTemplate" name="$parentBankCached">
+            <Anchors>
+              <Anchor point="TOPLEFT" x="13" y="-50" />
+            </Anchors>
+          <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'BankCached')
+        Mixin(self, BaganatorCachedBagLayoutMixin)
+                Baganator335Compat.ParentKey(self, nil, 'Layouts')
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+        </Frames>
+      </Frame>
+    </Frames>
+  </Frame>
+</Ui>

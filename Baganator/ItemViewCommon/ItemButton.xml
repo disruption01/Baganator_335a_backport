@@ -1,0 +1,111 @@
+<Ui>
+  <Button name="BaganatorRetailCachedItemButtonTemplate" virtual="true">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorRetailCachedItemButtonMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnClick>
+        self:OnClick(button, down)
+      </OnClick>
+      <OnEnter>
+        self:OnEnter()
+      </OnEnter>
+      <OnLeave>
+        self:OnLeave()
+      </OnLeave>
+    </Scripts>
+  </Button>
+
+  <Button name="BaganatorRetailLiveContainerItemButtonTemplate" virtual="true" inherits="ContainerFrameItemButtonTemplate">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorRetailLiveContainerItemButtonMixin)
+        self:MyOnLoad()
+      </OnLoad>
+    </Scripts>
+  </Button>
+
+  <Button name="BaganatorRetailLiveGuildItemButtonTemplate" virtual="true" inherits="GuildBankItemButtonTemplate">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorRetailLiveGuildItemButtonMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnClick>
+        self:OnClick(button, down)
+      </OnClick>
+      <OnHide>
+        self:OnHide()
+      </OnHide>
+      <OnEnter>
+        self:OnEnter()
+      </OnEnter>
+      <OnLeave>
+        self:OnLeave()
+      </OnLeave>
+    </Scripts>
+  </Button>
+
+  <Button name="BaganatorClassicCachedItemButtonTemplate" virtual="true" inherits="ItemButtonTemplate">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorClassicCachedItemButtonMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnClick>
+        self:OnClick(button, down)
+      </OnClick>
+      <OnEnter>
+        self:OnEnter()
+      </OnEnter>
+      <OnLeave>
+        self:OnLeave()
+      </OnLeave>
+    </Scripts>
+  </Button>
+
+  <!--
+    On 3.3.5a item use is protected. Inherit the Blizzard container button so
+    its original trusted OnClick/drag scripts perform UseContainerItem and
+    PickupContainerItem. Defining our own OnClick here would replace that trusted
+    script on Wrath and cause ADDON_ACTION_BLOCKED. Visuals are still sanitized
+    by BaganatorClassicLiveContainerItemButtonMixin:MyOnLoad().
+  -->
+  <Button name="BaganatorClassicLiveContainerItemButtonTemplate" virtual="true" inherits="ContainerFrameItemButtonTemplate">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorClassicLiveContainerItemButtonMixin)
+        if ContainerFrameItemButton_OnLoad then ContainerFrameItemButton_OnLoad(self) end
+        self:MyOnLoad()
+      </OnLoad>
+    </Scripts>
+  </Button>
+
+  <Button name="BaganatorClassicLiveGuildItemButtonTemplate" virtual="true" inherits="ItemButtonTemplate">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorClassicLiveGuildItemButtonMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnClick>
+        self:OnClick(button, down)
+      </OnClick>
+      <OnDragStart>
+        self:OnDragStart()
+      </OnDragStart>
+      <OnReceiveDrag>
+        self:OnReceiveDrag()
+      </OnReceiveDrag>
+      <OnHide>
+        if self.OnHide then self:OnHide() end
+      </OnHide>
+      <OnEnter>
+        self:OnEnter()
+      </OnEnter>
+      <OnLeave>
+        self:OnLeave()
+      </OnLeave>
+    </Scripts>
+  </Button>
+</Ui>

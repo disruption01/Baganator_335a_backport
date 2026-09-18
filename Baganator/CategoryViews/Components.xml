@@ -1,0 +1,20 @@
+<Ui>
+  <Button name="BaganatorCategoryViewsCategoryButtonTemplate" virtual="true" text=" ">
+    <NormalFont style="GameFontNormal" />
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorCategoryViewsCategoryButtonMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnClick>
+        self:OnClick(button, down)
+      </OnClick>
+      <OnEnter>
+        self:OnEnter()
+      </OnEnter>
+      <OnLeave>
+        self:OnLeave()
+      </OnLeave>
+    </Scripts>
+  </Button>
+</Ui>

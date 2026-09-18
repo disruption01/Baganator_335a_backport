@@ -1,0 +1,377 @@
+<Ui>
+  <Frame name="BaganatorSingleViewGuildViewTemplate" virtual="true" hidden="true" topLevel="true" enableMouse="true" inherits="ButtonFrameTemplate">
+    <Scripts>
+      <OnLoad>
+        if self:GetName() then self['NoTabsText'] = _G[self:GetName() .. 'NoTabsText'] end
+        if self:GetName() then self['NotVisitedText'] = _G[self:GetName() .. 'NotVisitedText'] end
+        if self:GetName() then self['ItemsTransferInfo'] = _G[self:GetName() .. 'ItemsTransferInfo'] end
+        if self:GetName() then self['GoldTransferInfo'] = _G[self:GetName() .. 'GoldTransferInfo'] end
+        if self:GetName() then self['Money'] = _G[self:GetName() .. 'Money'] end
+        Mixin(self, BaganatorSingleViewGuildViewMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnShow>
+        self:OnShow()
+      </OnShow>
+      <OnHide>
+        self:OnHide()
+      </OnHide>
+      <OnEvent>
+        self:OnEvent(event, ...)
+      </OnEvent>
+      <OnDragStart>
+        self:OnDragStart()
+      </OnDragStart>
+      <OnDragStop>
+        self:OnDragStop()
+      </OnDragStop>
+    </Scripts>
+    <Frames>
+      <Button inherits="BaganatorCustomiseButtonTemplate" frameLevel="700" name="$parentCustomiseButton">
+        <Anchors>
+          <Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parentCloseButton" />
+          <Anchor point="TOP" y="-1" />
+        </Anchors>
+      <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'CustomiseButton', 'AllFixedButtons')
+      </OnLoad></Scripts></Button>
+      <Button inherits="BaganatorTransferButtonTemplate" frameLevel="700" name="$parentTransferButton">
+        <Anchors>
+          <Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parentCustomiseButton" />
+        </Anchors>
+        <Scripts>
+          <OnLoad>
+        self['tooltipText'] = _G['BAGANATOR_L_TRANSFER_GUILD_VIEW_TOOLTIP_TEXT']
+        Baganator335Compat.ParentKey(self, 'TransferButton', 'AllFixedButtons')
+      </OnLoad><OnClick>
+            self:GetParent():Transfer()
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button inherits="BaganatorTooltipIconButtonTemplate" frameLevel="700" name="$parentToggleTabTextButton">
+        <Anchors>
+          <Anchor point="TOPLEFT" x="5" y="-1" />
+        </Anchors>
+        <Layers>
+          <Layer level="ARTWORK">
+            <Texture file="Interface\AddOns\Baganator\Assets\GuildTabText.tga" name="$parentIcon">
+              <Size x="18" y="18" />
+              <Anchors>
+                <Anchor point="CENTER" />
+              </Anchors>
+            </Texture>
+          </Layer>
+        </Layers>
+        <Scripts>
+          <OnLoad>
+        if self:GetName() then self['Icon'] = _G[self:GetName() .. 'Icon'] end
+        self['tooltipHeader'] = _G['BAGANATOR_L_TAB_INFO']; self['tooltipText'] = _G['BAGANATOR_L_GUILD_TAB_INFO_TOOLTIP_TEXT']
+        Baganator335Compat.ParentKey(self, 'ToggleTabTextButton', 'LiveButtons')
+      </OnLoad><OnClick>
+            self:GetParent():ToggleTabText()
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button inherits="BaganatorTooltipIconButtonTemplate" frameLevel="700" name="$parentToggleTabLogsButton">
+        <Anchors>
+          <Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parentToggleTabTextButton" />
+        </Anchors>
+        <Layers>
+          <Layer level="ARTWORK">
+            <Texture file="Interface\AddOns\Baganator\Assets\GuildTabLogs.tga" name="$parentIcon">
+              <Size x="18" y="18" />
+              <Anchors>
+                <Anchor point="CENTER" />
+              </Anchors>
+            </Texture>
+          </Layer>
+        </Layers>
+        <Scripts>
+          <OnLoad>
+        if self:GetName() then self['Icon'] = _G[self:GetName() .. 'Icon'] end
+        self['tooltipHeader'] = _G['BAGANATOR_L_TAB_LOGS']; self['tooltipText'] = _G['BAGANATOR_L_GUILD_TAB_LOGS_TOOLTIP_TEXT']
+        Baganator335Compat.ParentKey(self, 'ToggleTabLogsButton', 'LiveButtons')
+      </OnLoad><OnClick>
+            self:GetParent():ToggleTabLogs()
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button inherits="BaganatorTooltipIconButtonTemplate" frameLevel="700" name="$parentToggleGoldLogsButton">
+        <Anchors>
+          <Anchor point="LEFT" relativePoint="RIGHT" relativeTo="$parentToggleTabLogsButton" />
+        </Anchors>
+        <Layers>
+          <Layer level="ARTWORK">
+            <Texture file="Interface\AddOns\Baganator\Assets\Currency.tga" name="$parentIcon">
+              <Size x="18" y="18" />
+              <Anchors>
+                <Anchor point="CENTER" />
+              </Anchors>
+            </Texture>
+          </Layer>
+        </Layers>
+        <Scripts>
+          <OnLoad>
+        if self:GetName() then self['Icon'] = _G[self:GetName() .. 'Icon'] end
+        self['tooltipHeader'] = _G['BAGANATOR_L_MONEY_LOGS']; self['tooltipText'] = _G['BAGANATOR_L_GUILD_MONEY_LOGS_TOOLTIP_TEXT']
+        Baganator335Compat.ParentKey(self, 'ToggleGoldLogsButton', 'LiveButtons')
+      </OnLoad><OnClick>
+            self:GetParent():ToggleMoneyLogs()
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Frame name="$parentCompat1">
+        <Anchors>
+          <Anchor point="TOPLEFT" />
+        </Anchors>
+        <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'Container')
+      </OnLoad></Scripts><Frames>
+          <Frame inherits="BaganatorLiveGuildLayoutTemplate" name="$parentGuildLive">
+            <Anchors>
+              <Anchor point="TOPLEFT" />
+            </Anchors>
+          <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'GuildLive')
+        Mixin(self, BaganatorLiveGuildLayoutMixin)
+                Baganator335Compat.ParentKey(self, nil, 'Layouts')
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+          <Frame inherits="BaganatorCachedGuildLayoutTemplate" name="$parentGuildCached">
+            <Anchors>
+              <Anchor point="TOPLEFT" />
+            </Anchors>
+          <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'GuildCached')
+        Mixin(self, BaganatorGeneralGuildLayoutMixin)
+                Baganator335Compat.ParentKey(self, nil, 'Layouts')
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+
+          <Frame inherits="BaganatorLiveUnifiedGuildLayoutTemplate" name="$parentGuildUnifiedLive">
+            <Anchors>
+              <Anchor point="TOPLEFT" />
+            </Anchors>
+          <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'GuildUnifiedLive')
+        Mixin(self, BaganatorLiveUnifiedGuildLayoutMixin)
+                Baganator335Compat.ParentKey(self, nil, 'Layouts')
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+          <Frame inherits="BaganatorCachedUnifiedGuildLayoutTemplate" name="$parentGuildUnifiedCached">
+            <Anchors>
+              <Anchor point="TOPLEFT" />
+            </Anchors>
+          <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'GuildUnifiedCached')
+        Mixin(self, BaganatorUnifiedGuildLayoutMixin)
+                Baganator335Compat.ParentKey(self, nil, 'Layouts')
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+        </Frames>
+      </Frame>
+
+      <Frame inherits="BaganatorSearchWidgetTemplate" name="$parentSearchWidget"><Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'SearchWidget')
+        Mixin(self, BaganatorSearchWidgetMixin)
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+      <Frame inherits="BaganatorItemViewButtonVisibilityTemplate" name="$parentButtonVisibility"><Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'ButtonVisibility')
+        Mixin(self, BaganatorItemViewButtonVisibilityMixin)
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+    </Frames>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <FontString inherits="GameFontHighlight" name="$parentMoney">
+          <Anchors>
+            <Anchor point="BOTTOMLEFT" x="15" y="10" />
+          </Anchors>
+        </FontString>
+        <FontString inherits="GameFontHighlight" name="$parentGoldTransferInfo">
+          <Anchors>
+            <Anchor point="BOTTOMLEFT" x="15" y="30" />
+          </Anchors>
+        </FontString>
+        <FontString inherits="GameFontHighlight" name="$parentItemsTransferInfo">
+          <Anchors>
+            <Anchor point="BOTTOMLEFT" x="15" y="50" />
+          </Anchors>
+        </FontString>
+        <FontString inherits="GameFontHighlight" text="BAGANATOR_L_GUILD_BANK_DATA_MISSING_HINT" name="$parentNotVisitedText">
+          <Anchors>
+            <Anchor point="LEFT" relativeTo="$parentMoney" />
+            <Anchor point="TOP" relativePoint="CENTER" y="-3" />
+          </Anchors>
+        </FontString>
+        <FontString inherits="GameFontHighlight" text="BAGANATOR_L_GUILD_BANK_NO_TABS" name="$parentNoTabsText">
+          <Anchors>
+            <Anchor point="LEFT" relativeTo="$parentMoney" />
+            <Anchor point="TOP" relativePoint="CENTER" y="10" />
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+    <Frames>
+      <Button text="DEPOSIT" inherits="UIPanelButtonTemplate" name="$parentDepositButton">
+        <Anchors>
+          <Anchor point="BOTTOMRIGHT" x="-15" y="6" />
+        </Anchors>
+        <Scripts>
+          <OnLoad>
+        Baganator335Compat.ParentKey(self, 'DepositButton', 'LiveButtons')
+      </OnLoad><OnClick>
+            self:GetParent():DepositMoney()
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button text="WITHDRAW" inherits="UIPanelButtonTemplate" name="$parentWithdrawButton">
+        <Anchors>
+          <Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parentDepositButton" />
+        </Anchors>
+        <Scripts>
+          <OnLoad>
+        Baganator335Compat.ParentKey(self, 'WithdrawButton', 'LiveButtons')
+      </OnLoad><OnClick>
+            self:GetParent():WithdrawMoney()
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Frame name="$parentLogsFrame" inherits="BaganatorGuildLogsTemplate" frameStrata="DIALOG" hidden="true" topLevel="true">
+        <Anchors>
+          <Anchor point="CENTER" />
+        </Anchors>
+      <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'LogsFrame')
+        Mixin(self, BaganatorGuildLogsTemplateMixin)
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+      <Frame name="$parentTabTextFrame" inherits="BaganatorGuildTabTextTemplate" frameStrata="DIALOG" hidden="true" topLevel="true">
+        <Anchors>
+          <Anchor point="CENTER" />
+        </Anchors>
+      <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'TabTextFrame')
+        Mixin(self, BaganatorGuildTabTextTemplateMixin)
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+    </Frames>
+  </Frame>
+
+  <Frame name="BaganatorGuildLogsTemplate" virtual="true" inherits="ButtonFrameTemplate" enableMouse="true">
+    <Size x="500" y="300" />
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorGuildLogsTemplateMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnShow>
+        self:OnShow()
+      </OnShow>
+      <OnDragStart>
+        self:OnDragStart()
+      </OnDragStart>
+      <OnDragStop>
+        self:OnDragStop()
+      </OnDragStop>
+    </Scripts>
+    <Frames>
+      <Frame name="$parentCompat2">
+        <Anchors>
+          <Anchor point="TOPLEFT" y="-25" x="15" />
+          <Anchor point="BOTTOMRIGHT" y="10" x="-18" />
+        </Anchors>
+        <Frames>
+          <Frame name="$parentCompat3">
+            <Anchors><Anchor point="TOPLEFT" /><Anchor point="BOTTOMRIGHT" /></Anchors><Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'ScrollBox')
+      </OnLoad></Scripts><Frames>
+              <Frame name="$parentFontStringContainer">
+                <Size y="1" />
+                <Scripts><OnLoad>
+        if self:GetName() then self['FontString'] = _G[self:GetName() .. 'FontString'] end
+        self['scrollable'] = true
+        Baganator335Compat.ParentKey(self, 'FontStringContainer')
+      </OnLoad></Scripts><Layers>
+                  <Layer>
+                    <FontString nonspacewrap="true" justifyH="LEFT" justifyV="TOP" name="$parentFontString" />
+                  </Layer>
+                </Layers>
+              </Frame>
+            </Frames>
+          </Frame>
+        </Frames>
+        <Scripts>
+          <OnLoad>
+        self['fontName'] = 'GameFontHighlight'
+        Mixin(self, ScrollingFontMixin)
+        Baganator335Compat.ParentKey(self, 'TextContainer')
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+          <OnSizeChanged>
+        self:OnSizeChanged(width, height)
+      </OnSizeChanged>
+        </Scripts>
+      </Frame>
+      <Slider inherits="UIPanelScrollBarTemplate" name="$parentScrollBar">
+        <Anchors>
+          <Anchor point="TOPRIGHT" y="-25" x="-8" />
+          <Anchor point="BOTTOMRIGHT" y="10" />
+        </Anchors>
+      <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'ScrollBar')
+      </OnLoad></Scripts></Slider>
+    </Frames>
+  </Frame>
+
+  <Frame name="BaganatorGuildTabTextTemplate" virtual="true" inherits="ButtonFrameTemplate" enableMouse="true">
+    <Size x="500" y="300" />
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorGuildTabTextTemplateMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnShow>
+        self:OnShow()
+      </OnShow>
+      <OnDragStart>
+        self:OnDragStart()
+      </OnDragStart>
+      <OnDragStop>
+        self:OnDragStop()
+      </OnDragStop>
+    </Scripts>
+    <Frames>
+      <Frame inherits="InputBoxTemplate" name="$parentTextContainer">
+        <Anchors>
+          <Anchor point="TOPLEFT" y="-25" x="15" />
+          <Anchor point="BOTTOMRIGHT" y="40" x="-18" />
+        </Anchors>
+      <Scripts><OnLoad>
+        self['fontName'] = 'GameFontHighlight'
+        Baganator335Compat.ParentKey(self, 'TextContainer')
+      </OnLoad></Scripts></Frame>
+      <Slider inherits="UIPanelScrollBarTemplate" name="$parentScrollBar">
+        <Anchors>
+          <Anchor point="TOPRIGHT" y="-25" x="-8" />
+          <Anchor point="BOTTOMRIGHT" y="40" />
+        </Anchors>
+      <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'ScrollBar')
+      </OnLoad></Scripts></Slider>
+      <Button text="SAVE" inherits="UIPanelButtonTemplate" name="$parentSaveButton">
+        <Anchors>
+          <Anchor point="BOTTOMRIGHT" x="-15" y="6" />
+        </Anchors>
+        <Scripts>
+          <OnLoad>
+        Baganator335Compat.ParentKey(self, 'SaveButton')
+      </OnLoad><OnClick>
+            SetGuildBankText(GetCurrentGuildBankTab(), self:GetParent().TextContainer:GetInputText())
+          </OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+  </Frame>
+</Ui>

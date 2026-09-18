@@ -1,0 +1,19 @@
+<Ui>
+  <Frame name="BaganatorItemViewButtonVisibilityTemplate" virtual="true">
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorItemViewButtonVisibilityMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnShow>
+        self:OnShow()
+      </OnShow>
+      <OnHide>
+        self:OnHide()
+      </OnHide>
+      <OnEvent>
+        self:OnEvent(event, ...)
+      </OnEvent>
+    </Scripts>
+  </Frame>
+</Ui>

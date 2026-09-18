@@ -1,0 +1,20 @@
+<Ui>
+  <Frame name="BaganatorCustomiseDialogCategoriesDividerEditorTemplate" virtual="true">
+    <Size x="300" y="40" />
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorCustomiseDialogCategoriesDividerEditorMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+    </Scripts>
+    <Frames>
+      <Button text="DELETE" inherits="UIPanelButtonTemplate" name="$parentDeleteButton">
+        <Anchors>
+          <Anchor point="BOTTOMRIGHT" x="-15" y="0" />
+        </Anchors>
+      <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'DeleteButton', 'ChangeAlpha')
+      </OnLoad></Scripts></Button>
+    </Frames>
+  </Frame>
+</Ui>

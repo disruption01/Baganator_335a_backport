@@ -1,0 +1,8 @@
+<Ui>
+  <Frame name="BaganatorCategoryViewBankViewTemplate" virtual="true" inherits="BaganatorItemViewCommonBankViewTemplate">
+    <Scripts><OnLoad>
+        self['characterTemplate'] = 'BaganatorCategoryViewBankViewCharacterViewTemplate'; self['characterTabsTemplate'] = 'BaganatorCategoryViewBankViewCharacterTabsViewTemplate'; self['warbandTemplate'] = 'BaganatorCategoryViewBankViewWarbandViewTemplate'
+        Mixin(self, BaganatorItemViewCommonBankViewMixin)
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+</Ui>

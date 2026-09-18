@@ -1,0 +1,29 @@
+<Ui>
+  <Frame name="BaganatorSingleViewBackpackViewTemplate" virtual="true" inherits="BaganatorItemViewCommonBackpackViewTemplate">
+    <Scripts><OnLoad>
+        Mixin(self, BaganatorItemViewCommonBackpackViewMixin)
+        if BaganatorItemViewCommonBackpackViewMixin.OnLoad then BaganatorItemViewCommonBackpackViewMixin.OnLoad(self) end
+        Mixin(self, BaganatorSingleViewBackpackViewMixin)
+        if BaganatorSingleViewBackpackViewMixin.OnLoad then BaganatorSingleViewBackpackViewMixin.OnLoad(self) end
+      </OnLoad></Scripts><Frames>
+      <Frame name="$parentCompat1">
+        <Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'Container')
+      </OnLoad></Scripts><Frames>
+          <Frame inherits="BaganatorLiveBagLayoutTemplate" name="$parentBagLive"><Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'BagLive')
+        Mixin(self, BaganatorLiveBagLayoutMixin)
+                Baganator335Compat.ParentKey(self, nil, 'Layouts')
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+          <Frame inherits="BaganatorCachedBagLayoutTemplate" name="$parentBagCached"><Scripts><OnLoad>
+        Baganator335Compat.ParentKey(self, 'BagCached')
+        Mixin(self, BaganatorCachedBagLayoutMixin)
+                Baganator335Compat.ParentKey(self, nil, 'Layouts')
+                if self.OnLoad then self:OnLoad() end
+      </OnLoad></Scripts></Frame>
+        </Frames>
+      </Frame>
+    </Frames>
+  </Frame>
+</Ui>

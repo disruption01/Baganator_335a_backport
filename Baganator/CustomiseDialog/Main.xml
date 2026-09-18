@@ -1,0 +1,20 @@
+<Ui>
+  <Frame name="BaganatorCustomiseDialogTemplate" hidden="true" virtual="true" topLevel="true" enableMouse="true" inherits="ButtonFrameTemplate">
+    <Size x="600" y="520" />
+    <Scripts>
+      <OnLoad>
+        Mixin(self, BaganatorCustomiseDialogMixin)
+        if self.OnLoad then self:OnLoad() end
+      </OnLoad>
+      <OnDragStart>
+        self:OnDragStart()
+      </OnDragStart>
+      <OnDragStop>
+        self:OnDragStop()
+      </OnDragStop>
+      <OnShow>
+        self:OnShow()
+      </OnShow>
+    </Scripts>
+  </Frame>
+</Ui>

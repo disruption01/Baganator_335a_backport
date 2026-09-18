@@ -1,0 +1,60 @@
+## Interface: 30300
+## Title: Syndicator |cffff7a00v1.0.0|r
+## Version: 1.0.0
+## Author: plusmouse
+## X-Maintainer: Disruption01
+## X-Backport-Author: Disruption01
+## X-Backport-Version: 1.0.0
+## X-335-Build: 1.0.0
+## X-Target-Client: World of Warcraft 3.3.5a - build 12340
+## X-Upstream-Version: 279
+## X-Original-Project: https://www.curseforge.com/wow/addons/syndicator
+## X-GitHub: https://github.com/disruption01/Baganator_335a_backport
+## X-Discord: https://discord.gg/eJ5MaVNnBm
+## X-Support: https://linktr.ee/disruption01
+## SavedVariables: SYNDICATOR_CONFIG, SYNDICATOR_DATA, SYNDICATOR_SUMMARIES
+
+Compatibility\Compat335.lua
+
+
+Locales.lua
+
+Libs\LibStub.lua
+Libs\LibBattlePetTooltipLine\LibBattlePetTooltipLine.xml
+
+Core\Objects.lua
+Core\Locales.lua
+Core\Constants.lua
+Core\Config.lua
+Core\Utilities.lua
+Core\SlashCmd.lua
+Core\Initialize.lua
+
+Options\Initialize.lua
+Compatibility\Options335.lua
+
+Tracking\BagCache.lua
+Tracking\MailCache.lua
+Tracking\EquippedCache.lua
+Tracking\CurrencyCache.lua
+Tracking\GuildCache.lua
+Tracking\VoidCache.lua
+Tracking\AuctionCacheModern.lua
+Tracking\AuctionCacheLegacy.lua
+Tracking\ItemSummaries.lua
+Tracking\Tooltips.lua
+Tracking\CurrencyTooltipData.lua
+Tracking\Initialize.lua
+
+Search\Constants.lua
+Search\Initialize.lua
+Search\BaseInfo.lua
+Search\CheckItem.lua
+Search\GetGroupingKey.lua
+Search\OfflineList.lua
+Search\OfflineList.xml
+Search\SearchEverywhere.lua
+Search\UI\Builder.lua
+Search\Utilities.lua
+
+API\Main.lua
