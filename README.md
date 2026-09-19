@@ -7,7 +7,7 @@ Original Baganator and Syndicator are developed by **plusmouse / The Mouse Nest*
 
 ## Status
 
-**Disruption01 release:** `1.0.0`  
+**Disruption01 release:** `1.0.2`  
 **Target:** World of Warcraft 3.3.5a — build 12340  
 **Upstream bases:** Baganator `823-2-ged5d1c8`; Syndicator `279`
 
@@ -25,7 +25,7 @@ The 3.3.5a port keeps the Baganator/Syndicator inventory model while adapting th
 - Keyring and special-container handling.
 - Inventory location information and Syndicator-backed item tracking.
 - A native 3.3.5a settings/compatibility UI.
-- A 3.3.5a minimap button: left-click toggles bags; right-click opens settings.
+- A native 3.3.5a minimap button: left-click opens **About & Credits** with project/author/community links; right-click opens settings.
 
 ## Disruption01 Additions
 
@@ -33,12 +33,15 @@ The 3.3.5a work includes substantial compatibility and stability changes, includ
 
 - Wrath-era container, guild-bank, tooltip, currency, scrolling, item-button, and frame compatibility.
 - A private 3.3.5a options compatibility layer instead of publishing an incomplete modern `Settings` global.
-- 3.3.5a-safe sorting with replanning, stale-state cleanup, and watchdog protection.
+- Defensive support for custom 3.3.5a clients/UI packs that expose partial modern SharedXML APIs, without replacing or globally emulating those client APIs.
+- Private 3.3.5a-safe atlas and frame-pool handling to avoid crashes from incomplete custom SharedXML implementations.
+- Defensive Syndicator tooltip handling for stale summary records and incomplete modern font-color objects.
+- 3.3.5a-safe sorting with replanning, stale-state cleanup, watchdog protection, corrected indexed `tFilter()` semantics, and bag-cache synchronization before restacking.
 - 3.3.5a-safe pooled item-button rendering and empty-slot chrome.
 - Native Wrath search, saved-search, character-select, help, and currency UI adaptations.
 - Deterministic header-button rendering and keyring/special-container icon handling.
 - Visible Disruption01 release versions in WoW's AddOns list.
-- Visible in-game attribution in the minimap tooltip, settings UI, and first-run welcome screen.
+- Visible in-game attribution in the minimap tooltip, the minimap **About & Credits** panel, a dedicated **Credits** settings tab, and the first-run welcome screen.
 
 Detailed development history is retained in `Baganator/BACKPORT_NOTES.txt` and `Baganator/BACKPORT_NOTES_335.txt`.
 
@@ -48,6 +51,8 @@ Detailed development history is retained in `Baganator/BACKPORT_NOTES.txt` and `
 - Lua 5.1 / Wrath-era WoW API
 
 Other private-server cores may differ from a stock 12340 client. Server/core-specific behavior should be included in bug reports when relevant.
+
+The release also includes defensive compatibility for tested 3.3.5a clients that ship partial/custom SharedXML backports. Version **1.0.1** added compatibility fixes validated against the **Whitemane** client/UI environment while preserving the stock 3.3.5a code path. Version **1.0.2** fixes a 3.3.5a restack/sort edge case where a manually split or moved stack could be missed if Sort was pressed before the Syndicator bag cache had refreshed. These shims are kept private to Baganator/Syndicator and do not publish fake modern APIs globally.
 
 ## Requirements
 
@@ -70,7 +75,7 @@ Do not install only one of the two folders.
 
 ## Configuration / Usage
 
-Baganator exposes its 3.3.5a-compatible customisation window from the addon UI. The 3.3.5a minimap button opens the bags with left-click and the settings window with right-click. Syndicator also registers a small compatibility page in Interface Options.
+Baganator exposes its 3.3.5a-compatible customisation window from the addon UI. The 3.3.5a minimap button opens an **About & Credits** panel with upstream and Disruption01 links on left-click and opens settings on right-click. The About panel also includes a **Toggle Bags** button. The settings window contains a dedicated **Credits** tab. Syndicator also registers a small compatibility page in Interface Options.
 
 The 3.3.5a settings UI is intentionally narrower than the modern upstream configuration because modern `Settings`, `ScrollBox`, and `MenuUtil` systems do not exist on build 12340.
 
@@ -84,7 +89,7 @@ If a regression is found, please report the exact action sequence that triggers 
 
 ## Version
 
-**Disruption01 release:** `1.0.0`
+**Disruption01 release:** `1.0.2`
 
 Upstream bases used by this port:
 

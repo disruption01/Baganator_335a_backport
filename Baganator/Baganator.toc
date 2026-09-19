@@ -1,11 +1,11 @@
 ## Interface: 30300
-## Title: Baganator |cffff7a00v1.0.0|r
-## Version: 1.0.0
+## Title: Baganator |cffff7a00v1.0.2|r
+## Version: 1.0.2
 ## Author: plusmouse
 ## X-Maintainer: Disruption01
 ## X-Backport-Author: Disruption01
-## X-Backport-Version: 1.0.0
-## X-335-Build: 1.0.0
+## X-Backport-Version: 1.0.2
+## X-335-Build: 1.0.2
 ## X-Target-Client: World of Warcraft 3.3.5a - build 12340
 ## X-Upstream-Version: 823-2-ged5d1c8
 ## X-Original-Project: https://www.curseforge.com/wow/addons/baganator

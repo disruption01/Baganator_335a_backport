@@ -28,19 +28,24 @@ local function DoMovement(stacks)
         local partials = tFilter(stacksForItem, function(a) return a.item.itemCount ~= stackSize end, true)
         table.sort(partials, function(a, b) return a.item.itemCount < b.item.itemCount end)
 
-        local source, target = partials[1], partials[#partials]
+        -- A valid combine operation always has at least two partial stacks.
+        -- Guard anyway so a transient/inconsistent bag snapshot can never turn
+        -- into a Lua error while the cache is settling.
+        if #partials >= 2 then
+          local source, target = partials[1], partials[#partials]
 
-        local sourceLocation = ItemLocation:CreateFromBagAndSlot(source.bagID, source.slotID)
-        local targetLocation = ItemLocation:CreateFromBagAndSlot(target.bagID, target.slotID)
-        if not C_Item.IsLocked(sourceLocation) and not C_Item.IsLocked(targetLocation) then
-          -- No need to split the stack as the Blizzard engine will do that
-          -- for us to combine the stacks
-          C_Container.PickupContainerItem(source.bagID, source.slotID)
-          C_Container.PickupContainerItem(target.bagID, target.slotID)
-          ClearCursor()
-          moved = true
-        else
-          locked = true
+          local sourceLocation = ItemLocation:CreateFromBagAndSlot(source.bagID, source.slotID)
+          local targetLocation = ItemLocation:CreateFromBagAndSlot(target.bagID, target.slotID)
+          if not C_Item.IsLocked(sourceLocation) and not C_Item.IsLocked(targetLocation) then
+            -- No need to split the stack as the Blizzard engine will do that
+            -- for us to combine the stacks
+            C_Container.PickupContainerItem(source.bagID, source.slotID)
+            C_Container.PickupContainerItem(target.bagID, target.slotID)
+            ClearCursor()
+            moved = true
+          else
+            locked = true
+          end
         end
       end
     end
@@ -95,6 +100,17 @@ end
 function addonTable.Sorting.CombineStacks(bags, bagIDs, callback)
   if InCombatLockdown() then -- Sorting breaks during combat due to Blizzard restrictions
     return addonTable.Constants.SortStatus.Complete
+  end
+
+  -- On 3.3.5a BAG_UPDATE is deferred through Syndicator's cache. If the player
+  -- manually moves/splits a stack and presses Sort before that refresh finishes,
+  -- the cached bag snapshot can still describe the old slot/count layout. Reading
+  -- that stale snapshot here makes the combine pass miss the newly-created stack,
+  -- after which the ordering pass can leave the physical outlier behind. Wait for
+  -- the live cache to settle, then rebuild the combine plan from the fresh state.
+  if BAGANATOR_335 and Syndicator.API.IsBagEventPending and Syndicator.API.IsBagEventPending() then
+    callback(addonTable.Constants.SortStatus.WaitingMove)
+    return addonTable.Constants.SortStatus.WaitingMove
   end
 
   GetBagStacks(bags, bagIDs, function(stacks)

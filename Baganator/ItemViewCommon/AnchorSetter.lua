@@ -5,7 +5,7 @@ function addonTable.ItemViewCommon.GetAnchorSetter(parent, setting)
   holder:SetAllPoints()
 
   local circleAtlas = "common-mask-circle"
-  if not C_Texture.GetAtlasInfo(circleAtlas) then
+  if not addonTable.Compatibility.GetAtlasInfo(circleAtlas) then
     circleAtlas = "CircleMaskScalable"
   end
   local function GetBox()
@@ -14,11 +14,11 @@ function addonTable.ItemViewCommon.GetAnchorSetter(parent, setting)
     frame:SetFrameLevel(1000)
     frame:SetSize(50, 50)
     local visual = frame:CreateTexture(nil, "ARTWORK")
-    visual:SetAtlas(circleAtlas)
+    addonTable.Compatibility.SetAtlas(visual, circleAtlas, false, "Interface\\Tooltips\\UI-Tooltip-Background")
     visual:SetAllPoints()
     frame.visual = visual
     local checked = frame:CreateTexture(nil, "OVERLAY")
-    checked:SetAtlas("common-icon-checkmark")
+    addonTable.Compatibility.SetAtlas(checked, "common-icon-checkmark", false, "Interface\\Buttons\\UI-CheckBox-Check")
     checked:SetPoint("CENTER")
     checked:SetSize(33, 33)
     frame.checked = checked

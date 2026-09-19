@@ -51,7 +51,7 @@ end
 
 function addonTable.ItemViewCommon.GetCachedItemButtonPool(self)
   if addonTable.Constants.IsRetail then
-    return CreateFramePool("ItemButton", self, "BaganatorRetailCachedItemButtonTemplate", nil, false, function(b) b:UpdateTextures() end)
+    return (BAGANATOR_335 and addonTable.Compatibility.CreateFramePool or CreateFramePool)("ItemButton", self, "BaganatorRetailCachedItemButtonTemplate", nil, false, function(b) b:UpdateTextures() end)
   else
     return CreateObjectPool(function()
       classicCachedObjectCounter = classicCachedObjectCounter + 1
@@ -64,7 +64,7 @@ end
 
 function addonTable.ItemViewCommon.GetLiveItemButtonPool(self)
   if addonTable.Constants.IsRetail then
-    return CreateFramePool("ItemButton", self, "BaganatorRetailLiveContainerItemButtonTemplate", nil, false, function(b) b:UpdateTextures() end)
+    return (BAGANATOR_335 and addonTable.Compatibility.CreateFramePool or CreateFramePool)("ItemButton", self, "BaganatorRetailLiveContainerItemButtonTemplate", nil, false, function(b) b:UpdateTextures() end)
   else
     return CreateObjectPool(function()
       classicCachedObjectCounter = classicCachedObjectCounter + 1
@@ -77,7 +77,7 @@ end
 
 function addonTable.ItemViewCommon.GetLiveGuildItemButtonPool(parent)
   if addonTable.Constants.IsRetail then
-    return CreateFramePool("ItemButton", parent, "BaganatorRetailLiveGuildItemButtonTemplate", nil, false, function(b) b:UpdateTextures() end)
+    return (BAGANATOR_335 and addonTable.Compatibility.CreateFramePool or CreateFramePool)("ItemButton", parent, "BaganatorRetailLiveGuildItemButtonTemplate", nil, false, function(b) b:UpdateTextures() end)
   else
     return CreateObjectPool(function()
       classicCachedObjectCounter = classicCachedObjectCounter + 1
@@ -90,7 +90,7 @@ end
 
 function addonTable.ItemViewCommon.GetTabButtonPool(parent)
   if addonTable.Constants.IsRetail then
-    return CreateFramePool("Button", parent, "BaganatorRetailTabButtonTemplate")
+    return (BAGANATOR_335 and addonTable.Compatibility.CreateFramePool or CreateFramePool)("Button", parent, "BaganatorRetailTabButtonTemplate")
   else
     return CreateObjectPool(function()
       classicCachedObjectCounter = classicCachedObjectCounter + 1

@@ -5,6 +5,54 @@ addonTable.Tooltips = {}
 
 local LibBattlePetTooltipLine = LibStub("LibBattlePetTooltipLine-1-0")
 
+-- Some custom 3.3.5a clients expose the modern named font-color globals but
+-- without the ColorMixin methods expected by current Syndicator code. Keep
+-- the normal/native path untouched when WrapTextInColorCode exists, and use
+-- a private wrapper only for incomplete color objects. Do not mutate or
+-- replace the client globals.
+local function MakeSafeColorWrapper(color, fallbackR, fallbackG, fallbackB)
+  if color ~= nil then
+    local ok, method = pcall(function() return color.WrapTextInColorCode end)
+    if ok and type(method) == "function" then
+      return color
+    end
+  end
+
+  local r, g, b = fallbackR, fallbackG, fallbackB
+  if type(color) == "table" then
+    r = tonumber(color.r or color[1]) or r
+    g = tonumber(color.g or color[2]) or g
+    b = tonumber(color.b or color[3]) or b
+  else
+    local ok, getRGB = pcall(function() return color and color.GetRGB end)
+    if ok and type(getRGB) == "function" then
+      local rgbOK, cr, cg, cb = pcall(getRGB, color)
+      if rgbOK then
+        r = tonumber(cr) or r
+        g = tonumber(cg) or g
+        b = tonumber(cb) or b
+      end
+    end
+  end
+
+  local function ToByte(value)
+    value = math.max(0, math.min(1, tonumber(value) or 1))
+    return math.floor(value * 255 + 0.5)
+  end
+
+  local prefix = ("|cff%02x%02x%02x"):format(ToByte(r), ToByte(g), ToByte(b))
+  return {
+    WrapTextInColorCode = function(_, text)
+      return prefix .. tostring(text) .. "|r"
+    end,
+  }
+end
+
+local SafeLinkFontColor = MakeSafeColorWrapper(LINK_FONT_COLOR, 0.00, 0.66, 1.00)
+local SafeWhiteFontColor = MakeSafeColorWrapper(WHITE_FONT_COLOR, 1.00, 1.00, 1.00)
+local SafeTransmogrifyFontColor = MakeSafeColorWrapper(TRANSMOGRIFY_FONT_COLOR, 0.70, 0.20, 1.00)
+local SafePassiveSpellFontColor = MakeSafeColorWrapper(PASSIVE_SPELL_FONT_COLOR, 0.77, 0.12, 0.23)
+
 local function CharacterAndRealmComparator(a, b)
   if a.realmNormalized == b.realmNormalized then
     return a.character < b.character
@@ -147,29 +195,29 @@ function addonTable.Tooltips.AddItemLines(tooltip, summaries, itemLink)
   end
 
   if not addonTable.Config.Get(addonTable.Config.Options.SHOW_TOTAL_LINE_AFTER_CHARACTERS) then
-    AddDoubleLine(addonTable.Locales.INVENTORY, LINK_FONT_COLOR:WrapTextInColorCode(addonTable.Locales.TOTAL_X:format(WHITE_FONT_COLOR:WrapTextInColorCode(totals))))
+    AddDoubleLine(addonTable.Locales.INVENTORY, SafeLinkFontColor:WrapTextInColorCode(addonTable.Locales.TOTAL_X:format(SafeWhiteFontColor:WrapTextInColorCode(totals))))
   end
 
   local charactersShown = 0
   for _, s in ipairs(tooltipInfo.characters) do
     local entries = {}
     if s.bags > 0 then
-      table.insert(entries, addonTable.Locales.BAGS_X:format(WHITE_FONT_COLOR:WrapTextInColorCode(s.bags)))
+      table.insert(entries, addonTable.Locales.BAGS_X:format(SafeWhiteFontColor:WrapTextInColorCode(s.bags)))
     end
     if s.bank > 0 then
-      table.insert(entries, addonTable.Locales.BANK_X:format(WHITE_FONT_COLOR:WrapTextInColorCode(s.bank)))
+      table.insert(entries, addonTable.Locales.BANK_X:format(SafeWhiteFontColor:WrapTextInColorCode(s.bank)))
     end
     if s.mail > 0 then
-      table.insert(entries, addonTable.Locales.MAIL_X:format(WHITE_FONT_COLOR:WrapTextInColorCode(s.mail)))
+      table.insert(entries, addonTable.Locales.MAIL_X:format(SafeWhiteFontColor:WrapTextInColorCode(s.mail)))
     end
     if s.equipped > 0 then
-      table.insert(entries, addonTable.Locales.EQUIPPED_X:format(WHITE_FONT_COLOR:WrapTextInColorCode(s.equipped)))
+      table.insert(entries, addonTable.Locales.EQUIPPED_X:format(SafeWhiteFontColor:WrapTextInColorCode(s.equipped)))
     end
     if s.void > 0 then
-      table.insert(entries, addonTable.Locales.VOID_X:format(WHITE_FONT_COLOR:WrapTextInColorCode(s.void)))
+      table.insert(entries, addonTable.Locales.VOID_X:format(SafeWhiteFontColor:WrapTextInColorCode(s.void)))
     end
     if s.auctions > 0 then
-      table.insert(entries, addonTable.Locales.AUCTIONS_X:format(WHITE_FONT_COLOR:WrapTextInColorCode(s.auctions)))
+      table.insert(entries, addonTable.Locales.AUCTIONS_X:format(SafeWhiteFontColor:WrapTextInColorCode(s.auctions)))
     end
     local character = s.character
     if appendRealm then
@@ -197,22 +245,22 @@ function addonTable.Tooltips.AddItemLines(tooltip, summaries, itemLink)
         tooltip:AddLine("  ...")
         break
       end
-      AddDoubleLine("  " .. character, LINK_FONT_COLOR:WrapTextInColorCode(strjoin(", ", unpack(entries))))
+      AddDoubleLine("  " .. character, SafeLinkFontColor:WrapTextInColorCode(strjoin(", ", unpack(entries))))
       charactersShown = charactersShown + 1
     end
   end
 
   for index = 1, math.min(#tooltipInfo.guilds, addonTable.Config.Get("tooltips_character_limit")) do
     local s = tooltipInfo.guilds[index]
-    local output = addonTable.Locales.GUILD_X:format(WHITE_FONT_COLOR:WrapTextInColorCode(s.bank))
-    local guild = TRANSMOGRIFY_FONT_COLOR:WrapTextInColorCode(s.guild)
+    local output = addonTable.Locales.GUILD_X:format(SafeWhiteFontColor:WrapTextInColorCode(s.bank))
+    local guild = SafeTransmogrifyFontColor:WrapTextInColorCode(s.guild)
     if appendRealm then
       guild = guild .. "-" .. s.realmNormalized
     end
     if addonTable.Config.Get(addonTable.Config.Options.SHOW_CHARACTER_RACE_ICONS) then
       guild = addonTable.Utilities.GetGuildIcon() .. " " .. guild
     end
-    AddDoubleLine("  " .. guild, LINK_FONT_COLOR:WrapTextInColorCode(output))
+    AddDoubleLine("  " .. guild, SafeLinkFontColor:WrapTextInColorCode(output))
   end
   if #tooltipInfo.guilds > addonTable.Config.Get("tooltips_character_limit") then
     tooltip:AddLine("  ...")
@@ -222,14 +270,14 @@ function addonTable.Tooltips.AddItemLines(tooltip, summaries, itemLink)
     if addonTable.Config.Get(addonTable.Config.Options.SHOW_CHARACTER_RACE_ICONS) then
       icon = addonTable.Utilities.GetWarbandIcon() .. " "
     end
-    AddDoubleLine("  " .. icon .. PASSIVE_SPELL_FONT_COLOR:WrapTextInColorCode(addonTable.Locales.WARBAND), LINK_FONT_COLOR:WrapTextInColorCode(addonTable.Locales.BANK_X:format(WHITE_FONT_COLOR:WrapTextInColorCode(tooltipInfo.warband[1]))))
+    AddDoubleLine("  " .. icon .. SafePassiveSpellFontColor:WrapTextInColorCode(addonTable.Locales.WARBAND), SafeLinkFontColor:WrapTextInColorCode(addonTable.Locales.BANK_X:format(SafeWhiteFontColor:WrapTextInColorCode(tooltipInfo.warband[1]))))
   end
 
   if addonTable.Config.Get(addonTable.Config.Options.SHOW_TOTAL_LINE_AFTER_CHARACTERS) then
     if addonTable.Config.Get(addonTable.Config.Options.SHOW_BLANK_LINE_BEFORE_INVENTORY) and not blankLineAdded then
       tooltip:AddLine(" ")
     end
-    AddDoubleLine(addonTable.Locales.INVENTORY, LINK_FONT_COLOR:WrapTextInColorCode(addonTable.Locales.TOTAL_X:format(WHITE_FONT_COLOR:WrapTextInColorCode(totals))))
+    AddDoubleLine(addonTable.Locales.INVENTORY, SafeLinkFontColor:WrapTextInColorCode(addonTable.Locales.TOTAL_X:format(SafeWhiteFontColor:WrapTextInColorCode(totals))))
   end
 
   if addonTable.Constants.IsClassic then
@@ -278,7 +326,7 @@ function addonTable.Tooltips.AddCurrencyLines(tooltip, currencyID)
     appendRealm = true
   end
 
-  tooltip:AddDoubleLine(addonTable.Locales.ALL_CHARACTERS_COLON, WHITE_FONT_COLOR:WrapTextInColorCode(FormatLargeNumber(quantity)))
+  tooltip:AddDoubleLine(addonTable.Locales.ALL_CHARACTERS_COLON, SafeWhiteFontColor:WrapTextInColorCode(FormatLargeNumber(quantity)))
   for index = 1, math.min(#summary, addonTable.Config.Get("tooltips_character_limit")) do
     local s = summary[index]
     local character = s.character
@@ -291,7 +339,7 @@ function addonTable.Tooltips.AddCurrencyLines(tooltip, currencyID)
     if addonTable.Config.Get(addonTable.Config.Options.SHOW_CHARACTER_RACE_ICONS) and s.race then
       character = addonTable.Utilities.GetCharacterIcon(s.race, s.sex) .. " " .. character
     end
-    tooltip:AddDoubleLine("  " .. character, WHITE_FONT_COLOR:WrapTextInColorCode(FormatLargeNumber(s.quantity)))
+    tooltip:AddDoubleLine("  " .. character, SafeWhiteFontColor:WrapTextInColorCode(FormatLargeNumber(s.quantity)))
   end
   if #summary > addonTable.Config.Get("tooltips_character_limit") then
     tooltip:AddLine("  ...")

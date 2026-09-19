@@ -425,7 +425,7 @@ local LIVE_LAYOUT_EVENTS = {
 
 function BaganatorLiveBagLayoutMixin:OnLoad()
   self.buttonPool = addonTable.ItemViewCommon.GetLiveItemButtonPool(self)
-  self.indexFramesPool = CreateFramePool("Frame", self)
+  self.indexFramesPool = (BAGANATOR_335 and addonTable.Compatibility.CreateFramePool or CreateFramePool)("Frame", self)
   self.buttons = {}
   self.buttonsByBag = {}
   self.bagSizesUsed = {}
@@ -692,7 +692,7 @@ BaganatorLiveCategoryLayoutMixin = {}
 function BaganatorLiveCategoryLayoutMixin:OnLoad()
   self.buttonPool = addonTable.ItemViewCommon.GetLiveItemButtonPool(self)
   self.dummyButtonPool = addonTable.ItemViewCommon.GetCachedItemButtonPool(self)
-  self.indexFramesPool = CreateFramePool("Frame", self)
+  self.indexFramesPool = (BAGANATOR_335 and addonTable.Compatibility.CreateFramePool or CreateFramePool)("Frame", self)
   self.buttons = {}
   self.buttonsByKey = {}
   self.indexFrames = {}
@@ -998,7 +998,7 @@ BaganatorCachedCategoryLayoutMixin = {}
 
 function BaganatorCachedCategoryLayoutMixin:OnLoad()
   self.buttonPool = addonTable.ItemViewCommon.GetCachedItemButtonPool(self)
-  self.indexFramesPool = CreateFramePool("Frame", self)
+  self.indexFramesPool = (BAGANATOR_335 and addonTable.Compatibility.CreateFramePool or CreateFramePool)("Frame", self)
   self.buttons = {}
   self.buttonsByKey = {}
   self.indexFrames = {}

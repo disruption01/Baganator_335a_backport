@@ -78,15 +78,18 @@ if not tAppendAll then
 end
 
 if not tFilter then
-  function tFilter(src, predicate, preserveKeys)
+  -- Match Blizzard's TableUtil semantics: when isIndexTable is true the
+  -- input is a sequential array and the filtered result must also be a
+  -- dense sequential array. When false/nil, preserve the original keys.
+  function tFilter(src, predicate, isIndexTable)
     local out = {}
-    if preserveKeys then
-      for k, v in pairs(src) do
-        if predicate(v, k) then out[k] = v end
+    if isIndexTable then
+      for i, v in ipairs(src) do
+        if predicate(v, i) then out[#out + 1] = v end
       end
     else
-      for _, v in ipairs(src) do
-        if predicate(v) then out[#out + 1] = v end
+      for k, v in pairs(src) do
+        if predicate(v, k) then out[k] = v end
       end
     end
     return out
@@ -530,8 +533,22 @@ function Syndicator335Compat.OpenOptionsCategory(category)
   end
 end
 
-C_Texture = C_Texture or {}
-function C_Texture.GetAtlasInfo() return nil end
+-- Do not create or overwrite the modern C_Texture namespace on 3.3.5a.
+-- Some custom clients/UI packs provide a partial atlas implementation. Exposing a
+-- fake C_Texture (or replacing their GetAtlasInfo) makes other code believe the
+-- modern atlas API is complete and can also hide atlases their client actually has.
+Syndicator335Compat = Syndicator335Compat or {}
+function Syndicator335Compat.GetAtlasInfo(atlas)
+  local cTexture = rawget(_G, "C_Texture")
+  local getAtlasInfo = type(cTexture) == "table" and cTexture.GetAtlasInfo
+  if type(getAtlasInfo) == "function" then
+    local ok, info = pcall(getAtlasInfo, atlas)
+    if ok then
+      return info
+    end
+  end
+  return nil
+end
 
 -- ---------------------------------------------------------------------------
 -- Enum values used by Baganator/Syndicator

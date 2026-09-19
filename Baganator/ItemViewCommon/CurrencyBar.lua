@@ -14,7 +14,7 @@ end
 
 function BaganatorCurrencyWidgetMixin:OnLoad()
   self.currencyPool = CreateFontStringPool(self, "BACKGROUND", 0, "GameFontHighlight")
-  self.currencyButtons = CreateFramePool("Button", self, nil, nil, false, function(b)
+  self.currencyButtons = (BAGANATOR_335 and addonTable.Compatibility.CreateFramePool or CreateFramePool)("Button", self, nil, nil, false, function(b)
     if b.setup then
       return
     end

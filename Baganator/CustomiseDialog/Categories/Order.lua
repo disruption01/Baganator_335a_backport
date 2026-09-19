@@ -2,7 +2,7 @@
 local addonTable = select(2, ...)
 
 local folderMarker
-if C_Texture.GetAtlasInfo("AnimCreate_Icon_Folder") then
+if addonTable.Compatibility.GetAtlasInfo("AnimCreate_Icon_Folder") then
   folderMarker = "AnimCreate_Icon_Folder"
 else
   folderMarker = "FXAM-SmallSpikeyGlow"

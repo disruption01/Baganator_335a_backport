@@ -330,21 +330,29 @@ function SyndicatorItemSummariesMixin:GetTooltipInfo(key, sameConnectedRealm, sa
     if charactersByRealm then
       for char, summary in pairs(charactersByRealm) do
         local byKey = summary[key]
-        local characterDetails = Syndicator.API.GetCharacter(char .. "-" .. r).details
-        if byKey ~= nil and characterDetails.show.inventory and (not sameFaction or characterDetails.faction == currentFaction) then
-          table.insert(result.characters, {
-            character = characterDetails.character,
-            realmNormalized = characterDetails.realmNormalized,
-            className = characterDetails.className,
-            race = characterDetails.race,
-            sex = characterDetails.sex,
-            bags = byKey.bags or 0,
-            bank = byKey.bank or 0,
-            mail = byKey.mail or 0,
-            equipped = byKey.equipped or 0,
-            void = byKey.void or 0,
-            auctions = byKey.auctions or 0,
-          })
+        if byKey ~= nil then
+          -- Some 3.3.5a clients/private-server UI packs can leave a stale
+          -- summary entry behind after the corresponding character record has
+          -- disappeared or changed realm-normalisation. Treat that summary as
+          -- unavailable instead of letting a tooltip hover abort with a nil
+          -- dereference. Valid records follow the exact same path as upstream.
+          local characterData = Syndicator.API.GetCharacter(char .. "-" .. r)
+          local characterDetails = characterData and characterData.details
+          if characterDetails and characterDetails.show and characterDetails.show.inventory and (not sameFaction or characterDetails.faction == currentFaction) then
+            table.insert(result.characters, {
+              character = characterDetails.character,
+              realmNormalized = characterDetails.realmNormalized,
+              className = characterDetails.className,
+              race = characterDetails.race,
+              sex = characterDetails.sex,
+              bags = byKey.bags or 0,
+              bank = byKey.bank or 0,
+              mail = byKey.mail or 0,
+              equipped = byKey.equipped or 0,
+              void = byKey.void or 0,
+              auctions = byKey.auctions or 0,
+            })
+          end
         end
       end
     end
@@ -352,13 +360,16 @@ function SyndicatorItemSummariesMixin:GetTooltipInfo(key, sameConnectedRealm, sa
     if guildsByRealm then
       for guild, summary in pairs(guildsByRealm) do
         local byKey = summary[key]
-        local guildDetails = SYNDICATOR_DATA.Guilds[guild .. "-" .. r].details
-        if byKey ~= nil and guildDetails.show.inventory and (not sameFaction or guildDetails.faction == currentFaction) then
-          table.insert(result.guilds, {
-            guild = guildDetails.guild,
-            realmNormalized = r,
-            bank = byKey.bank or 0
-          })
+        if byKey ~= nil then
+          local guildData = SYNDICATOR_DATA.Guilds[guild .. "-" .. r]
+          local guildDetails = guildData and guildData.details
+          if guildDetails and guildDetails.show and guildDetails.show.inventory and (not sameFaction or guildDetails.faction == currentFaction) then
+            table.insert(result.guilds, {
+              guild = guildDetails.guild,
+              realmNormalized = r,
+              bank = byKey.bank or 0
+            })
+          end
         end
       end
     end
@@ -366,8 +377,9 @@ function SyndicatorItemSummariesMixin:GetTooltipInfo(key, sameConnectedRealm, sa
 
   local currentGuild = Syndicator.API.GetCurrentGuild()
   if currentGuild then
-    local currentGuildDetails = Syndicator.API.GetGuild(currentGuild).details
-    if not FindInTableIf(result.guilds, function(a) return a.guild == currentGuildDetails.guild and a.realmNormalized == currentGuildDetails.realm end) and self.SV.Guilds.ByRealm[currentGuildDetails.realm] then
+    local currentGuildData = Syndicator.API.GetGuild(currentGuild)
+    local currentGuildDetails = currentGuildData and currentGuildData.details
+    if currentGuildDetails and currentGuildDetails.show and not FindInTableIf(result.guilds, function(a) return a.guild == currentGuildDetails.guild and a.realmNormalized == currentGuildDetails.realm end) and self.SV.Guilds.ByRealm[currentGuildDetails.realm] then
       local summary = self.SV.Guilds.ByRealm[currentGuildDetails.realm][currentGuildDetails.guild]
       if summary then
         local byKey = summary[key]

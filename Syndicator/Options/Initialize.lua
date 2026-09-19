@@ -83,7 +83,7 @@ local hiddenColor = CreateColor(1, 0, 0)
 
 local inventoryIcon = "banker"
 local goldIcon = "coin-gold"
-if C_Texture.GetAtlasInfo(goldIcon) == nil then
+if Syndicator335Compat.GetAtlasInfo(goldIcon) == nil then
   goldIcon = "auctionhouse-icon-coin-gold"
 end
 

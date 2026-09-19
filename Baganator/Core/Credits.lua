@@ -19,7 +19,7 @@ CREDITS.URLS = {
 }
 
 local function GetVersion()
-  return GetAddOnMetadata("Baganator", "Version") or "1.0.0"
+  return GetAddOnMetadata("Baganator", "Version") or "1.0.2"
 end
 CREDITS.GetVersion = GetVersion
 

@@ -21,7 +21,7 @@ function addonTable.Options.Initialize()
   credits:SetWidth(560)
   credits:SetJustifyH("LEFT")
   credits:SetJustifyV("TOP")
-  local version = GetAddOnMetadata("Syndicator", "Version") or "1.0.0"
+  local version = GetAddOnMetadata("Syndicator", "Version") or "1.0.2"
   credits:SetText(
     "Original Syndicator by plusmouse (The Mouse Nest).\n" ..
     "World of Warcraft 3.3.5a backport and compatibility work by Disruption01.\n" ..

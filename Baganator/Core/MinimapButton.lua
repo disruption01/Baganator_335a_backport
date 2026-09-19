@@ -65,7 +65,7 @@ function addonTable.MinimapButton.Initialize()
   button:SetScript("OnEnter", function(self)
     GameTooltip:SetOwner(self, "ANCHOR_LEFT")
     GameTooltip:ClearLines()
-    local version = GetAddOnMetadata("Baganator", "Version") or "1.0.0"
+    local version = GetAddOnMetadata("Baganator", "Version") or "1.0.2"
     GameTooltip:AddLine("Baganator |cffff7a00v" .. version .. "|r")
     AddTooltipLine("Original addon by plusmouse / The Mouse Nest", 1, 1, 1)
     AddTooltipLine("WoW 3.3.5a backport by Disruption01", 1, 0.82, 0)

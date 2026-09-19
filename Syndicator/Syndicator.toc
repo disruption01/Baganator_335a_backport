@@ -1,11 +1,11 @@
 ## Interface: 30300
-## Title: Syndicator |cffff7a00v1.0.0|r
-## Version: 1.0.0
+## Title: Syndicator |cffff7a00v1.0.2|r
+## Version: 1.0.2
 ## Author: plusmouse
 ## X-Maintainer: Disruption01
 ## X-Backport-Author: Disruption01
-## X-Backport-Version: 1.0.0
-## X-335-Build: 1.0.0
+## X-Backport-Version: 1.0.2
+## X-335-Build: 1.0.2
 ## X-Target-Client: World of Warcraft 3.3.5a - build 12340
 ## X-Upstream-Version: 279
 ## X-Original-Project: https://www.curseforge.com/wow/addons/syndicator

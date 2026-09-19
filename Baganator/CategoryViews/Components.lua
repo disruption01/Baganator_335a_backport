@@ -50,7 +50,7 @@ function BaganatorCategoryViewsCategoryButtonMixin:OnLeave()
 end
 
 function addonTable.CategoryViews.GetSectionButtonPool(parent)
-  return CreateFramePool("Button", parent, nil, nil, false, function(button)
+  return (BAGANATOR_335 and addonTable.Compatibility.CreateFramePool or CreateFramePool)("Button", parent, nil, nil, false, function(button)
     if button.arrow then
       return
     end
